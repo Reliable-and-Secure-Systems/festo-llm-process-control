@@ -129,10 +129,12 @@ pip install transformers peft trl bitsandbytes accelerate huggingface_hub
 If you use this code or results, please cite:
 
 ```
-@article{rayar2026festo,
-  title={LLMs as Autonomous Controllers for Multivariable Industrial Fluid Processes},
-  author={Rayar, Vidyashree},
-  institution={BTU Cottbus-Senftenberg},
-  year={2026}
+@inproceedings{rayar2026llm,
+  title        = {LLMs as Autonomous Controllers for Multivariable Industrial Fluid Processes},
+  author       = {Rayar, Vidyashree and H{\"u}bner, Michael and Taheri, Mahdi},
+  booktitle    = {Proceedings of [Conference Name]},
+  year         = {2026},
+  organization = {Brandenburg University of Technology Cottbus-Senftenberg},
+  address      = {Cottbus, Germany}
 }
 ```
