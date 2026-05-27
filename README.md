@@ -1,8 +1,8 @@
-# LLM-Based Closed-Loop Control of Festo MPS PA Dual-Tank System
+# LLMs as Autonomous Controllers for Multivariable Industrial Fluid Processes
 
 This repository contains the code, training data generation scripts, inference supervisors, and evaluation results for the experiments presented in the paper:
 
-> **"Large Language Model-Based Control of Festo Fluid Process Systems"**
+> **"LLMs as Autonomous Controllers for Multivariable Industrial Fluid Processes"**
 > Vidyashree Rayar — BTU Cottbus-Senftenberg
 
 ---
@@ -130,7 +130,7 @@ If you use this code or results, please cite:
 
 ```
 @article{rayar2026festo,
-  title={Large Language Model-Based Control of Festo Fluid Process Systems},
+  title={LLMs as Autonomous Controllers for Multivariable Industrial Fluid Processes},
   author={Rayar, Vidyashree},
   institution={BTU Cottbus-Senftenberg},
   year={2026}
