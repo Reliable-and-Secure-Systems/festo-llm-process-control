@@ -1,0 +1,2611 @@
+Starting simulation...
+Starting LLM supervisor...
+Simulation initialized:
+  Upper tank level: 20%
+  Lower tank level: 80%
+  Temperature: 25°C
+  Target level: 45% ± 5%
+  Target temp: 35°C ± 3°C
+Simulation running. Press Ctrl+C to stop.
+Target: Maintain upper tank at 45% level and 35°C
+Loading fine-tuned Llama 3.2 exp_4 model (v6-based supervisor)...
+Loading base model...
+[50] Upper: 20%, Lower: 80%, Temp: 24.481°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][100] Upper: 20%, Lower: 80%, Temp: 23.962°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+Loading checkpoint shards:  50%|█████     | 1/2 [00:05<00:05,  5.17s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:06<00:00,  3.07s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:06<00:00,  3.39s/it]
+Base model loaded. Loading PEFT adapter (checkpoint-1200)...
+exp_4 Model loaded - Pure LLM capability test
+======================================================================
+LLM CONTROL AGENT exp_4 (v6-based) - PURE CAPABILITY TEST
+======================================================================
+Target: Upper Tank Level = 45.0% +/- 5.0%
+Target: Temperature      = 35.0C +/- 3.0C
+Hardware limits: temp > 38.0C, level > 70.0%, no pump+valve
+NO external logic - LLM controls everything
+History window: 6 steps
+======================================================================
+[150] Upper: 20%, Lower: 80%, Temp: 23.443°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[200] Upper: 20%, Lower: 80%, Temp: 22.924°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[250] Upper: 20%, Lower: 80%, Temp: 22.4051°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[300] Upper: 20%, Lower: 80%, Temp: 21.8861°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 80, "upper_valve_open": false, "heater_on": true, "reason": "level low, filling; temp low, heater on"} If you want to adjust the response, please let me know. Examples:
+Input: level=30%
+   -> LLM decision: Pump=80%, Heater=True, Valve=False
+   -> Reason: level low, filling; temp low, heater on
+
+[02:01:03] Decision #1
+  Upper=20.1%  Lower=80.0%  Temp=23.36C
+  Level error: 24.95% (MISS)
+  Temp error:  11.64C (MISS)
+  Control: Pump=80%  Heater=True  Valve=False
+======================================================================
+[350] Upper: 48.776%, Lower: 51.224%, Temp: 24.8154°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[400] Upper: 48.776%, Lower: 51.224%, Temp: 27.9964°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[450] Upper: 48.776%, Lower: 51.224%, Temp: 31.1774°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[500] Upper: 48.776%, Lower: 51.224%, Temp: 34.3585°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, it was: {"pump_power": 0, "up
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:01:25] Decision #2
+  Upper=48.8%  Lower=51.2%  Temp=25.35C
+  Level error: 3.79% (HIT)
+  Temp error:  9.65C (MISS)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[550] Upper: 48.776%, Lower: 51.224%, Temp: 37.5395°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[600] Upper: 48.776%, Lower: 51.224%, Temp: 38.0121°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[650] Upper: 48.776%, Lower: 51.224%, Temp: 38.0111°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[700] Upper: 48.776%, Lower: 51.224%, Temp: 38.0101°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:01:46] Decision #3
+  Upper=48.4%  Lower=51.6%  Temp=37.74C
+  Level error: 3.41% (HIT)
+  Temp error:  2.74C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[750] Upper: 48.776%, Lower: 51.224%, Temp: 37.7871°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[800] Upper: 48.776%, Lower: 51.224%, Temp: 37.2681°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more history or customize the response, let me know
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:01:57] Decision #4
+  Upper=50.0%  Lower=50.0%  Temp=37.20C
+  Level error: 5.02% (MISS)
+  Temp error:  2.20C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[850] Upper: 23.496%, Lower: 76.504%, Temp: 37.9036°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[900] Upper: 0%, Lower: 100%, Temp: 38.0062°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or other parameters, let me know! Ot
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:02:08] Decision #5
+  Upper=0.0%  Lower=100.0%  Temp=38.18C
+  Level error: 45.00% (MISS)
+  Temp error:  3.18C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[950] Upper: 22.89%, Lower: 77.11%, Temp: 37.9312°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[1000] Upper: 49.05%, Lower: 50.95%, Temp: 37.4122°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1050] Upper: 49.05%, Lower: 50.95%, Temp: 36.8932°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1100] Upper: 49.05%, Lower: 50.95%, Temp: 36.3742°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1150] Upper: 49.05%, Lower: 50.95%, Temp: 35.8552°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "level on target; temp high, heater off"} If you want to know the previous response, I can tell you that the response was: {"
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: level on target; temp high, heater off
+
+[02:02:29] Decision #6
+  Upper=46.7%  Lower=53.3%  Temp=38.08C
+  Level error: 1.73% (HIT)
+  Temp error:  3.08C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[1200] Upper: 49.05%, Lower: 50.95%, Temp: 35.3362°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1250] Upper: 49.05%, Lower: 50.95%, Temp: 34.8172°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1300] Upper: 49.05%, Lower: 50.95%, Temp: 34.2982°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1350] Upper: 49.05%, Lower: 50.95%, Temp: 33.7792°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response to be more user-friendly, you c
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:02:51] Decision #7
+  Upper=48.8%  Lower=51.2%  Temp=35.25C
+  Level error: 3.83% (HIT)
+  Temp error:  0.25C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[1400] Upper: 49.05%, Lower: 50.95%, Temp: 33.2603°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1450] Upper: 49.05%, Lower: 50.95%, Temp: 32.7413°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1500] Upper: 49.05%, Lower: 50.95%, Temp: 32.2223°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1550] Upper: 49.05%, Lower: 50.95%, Temp: 31.7033°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:03:12] Decision #8
+  Upper=51.1%  Lower=48.9%  Temp=32.21C
+  Level error: 6.10% (MISS)
+  Temp error:  2.79C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[1600] Upper: 12.71%, Lower: 87.2901%, Temp: 32.8567°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[1650] Upper: 0%, Lower: 100%, Temp: 36.0378°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[1700] Upper: 0%, Lower: 100%, Temp: 37.9904°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[1750] Upper: 0%, Lower: 100%, Temp: 38.0437°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:03:34] Decision #9
+  Upper=0.0%  Lower=100.0%  Temp=34.59C
+  Level error: 45.00% (MISS)
+  Temp error:  0.41C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[1800] Upper: 35.97%, Lower: 64.03%, Temp: 37.9144°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[1850] Upper: 49.05%, Lower: 50.95%, Temp: 37.3954°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1900] Upper: 49.05%, Lower: 50.95%, Temp: 36.8764°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[1950] Upper: 49.05%, Lower: 50.95%, Temp: 36.3574°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:03:54] Decision #10
+  Upper=48.4%  Lower=51.6%  Temp=38.11C
+  Level error: 3.38% (HIT)
+  Temp error:  3.11C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[2000] Upper: 49.05%, Lower: 50.95%, Temp: 35.8385°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2050] Upper: 49.05%, Lower: 50.95%, Temp: 35.3195°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2100] Upper: 49.05%, Lower: 50.95%, Temp: 34.8005°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:04:06] Decision #11
+  Upper=50.3%  Lower=49.7%  Temp=35.62C
+  Level error: 5.26% (MISS)
+  Temp error:  0.62C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[2150] Upper: 0%, Lower: 100%, Temp: 37.2119°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[2200] Upper: 0%, Lower: 100%, Temp: 38.0348°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:04:17] Decision #12
+  Upper=0.0%  Lower=100.0%  Temp=37.91C
+  Level error: 45.00% (MISS)
+  Temp error:  2.91C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[2250] Upper: 49.05%, Lower: 50.95%, Temp: 37.6836°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2300] Upper: 49.05%, Lower: 50.95%, Temp: 37.1646°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2350] Upper: 49.05%, Lower: 50.95%, Temp: 36.6456°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2400] Upper: 49.05%, Lower: 50.95%, Temp: 36.1266°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:04:38] Decision #13
+  Upper=47.6%  Lower=52.4%  Temp=37.81C
+  Level error: 2.63% (HIT)
+  Temp error:  2.81C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[2450] Upper: 49.05%, Lower: 50.95%, Temp: 35.6076°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2500] Upper: 49.05%, Lower: 50.95%, Temp: 35.0886°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:04:50] Decision #14
+  Upper=50.9%  Lower=49.1%  Temp=34.62C
+  Level error: 5.88% (MISS)
+  Temp error:  0.38C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[2550] Upper: 47.47%, Lower: 52.53%, Temp: 34.6239°C | Pump: OFF (0%) | Heater: ON | Valve: OPEN
+[2600] Upper: 0%, Lower: 100%, Temp: 37.7951°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[2650] Upper: 0%, Lower: 100%, Temp: 38.0358°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:05:01] Decision #15
+  Upper=0.0%  Lower=100.0%  Temp=39.24C
+  Level error: 45.00% (MISS)
+  Temp error:  4.24C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[2700] Upper: 49.05%, Lower: 50.95%, Temp: 37.6007°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2750] Upper: 49.05%, Lower: 50.95%, Temp: 37.0817°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2800] Upper: 49.05%, Lower: 50.95%, Temp: 36.5627°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2850] Upper: 49.05%, Lower: 50.95%, Temp: 36.0437°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:05:23] Decision #16
+  Upper=49.5%  Lower=50.5%  Temp=37.18C
+  Level error: 4.48% (HIT)
+  Temp error:  2.18C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[2900] Upper: 49.05%, Lower: 50.95%, Temp: 35.5247°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[2950] Upper: 49.05%, Lower: 50.95%, Temp: 35.0058°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3000] Upper: 49.05%, Lower: 50.95%, Temp: 34.4868°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3050] Upper: 49.05%, Lower: 50.95%, Temp: 33.9678°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:05:44] Decision #17
+  Upper=49.4%  Lower=50.6%  Temp=35.72C
+  Level error: 4.38% (HIT)
+  Temp error:  0.72C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[3100] Upper: 49.05%, Lower: 50.95%, Temp: 33.4488°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3150] Upper: 49.05%, Lower: 50.95%, Temp: 32.9298°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3200] Upper: 49.05%, Lower: 50.95%, Temp: 32.4108°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3250] Upper: 49.05%, Lower: 50.95%, Temp: 31.8918°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:06:06] Decision #18
+  Upper=49.3%  Lower=50.7%  Temp=32.67C
+  Level error: 4.26% (HIT)
+  Temp error:  2.33C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[3300] Upper: 49.05%, Lower: 50.95%, Temp: 31.7132°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[3350] Upper: 49.05%, Lower: 50.95%, Temp: 34.8943°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[3400] Upper: 49.05%, Lower: 50.95%, Temp: 38.0211°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3450] Upper: 49.05%, Lower: 50.95%, Temp: 38.03°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3500] Upper: 49.05%, Lower: 50.95%, Temp: 38.029°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:06:27] Decision #19
+  Upper=48.4%  Lower=51.6%  Temp=35.05C
+  Level error: 3.38% (HIT)
+  Temp error:  0.05C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[3550] Upper: 49.05%, Lower: 50.95%, Temp: 37.584°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3600] Upper: 49.05%, Lower: 50.95%, Temp: 37.065°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3650] Upper: 49.05%, Lower: 50.95%, Temp: 36.546°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3700] Upper: 49.05%, Lower: 50.95%, Temp: 36.027°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:06:48] Decision #20
+  Upper=50.7%  Lower=49.3%  Temp=37.04C
+  Level error: 5.72% (MISS)
+  Temp error:  2.04C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[3750] Upper: 0%, Lower: 100%, Temp: 37.8464°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[3800] Upper: 0%, Lower: 100%, Temp: 38.023°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:06:59] Decision #21
+  Upper=0.0%  Lower=100.0%  Temp=38.68C
+  Level error: 45.00% (MISS)
+  Temp error:  3.68C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[3850] Upper: 49.05%, Lower: 50.95%, Temp: 37.8°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3900] Upper: 49.05%, Lower: 50.95%, Temp: 37.2811°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[3950] Upper: 49.05%, Lower: 50.95%, Temp: 36.7621°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4000] Upper: 49.05%, Lower: 50.95%, Temp: 36.2431°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:07:21] Decision #22
+  Upper=47.6%  Lower=52.4%  Temp=37.73C
+  Level error: 2.60% (HIT)
+  Temp error:  2.73C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[4050] Upper: 49.05%, Lower: 50.95%, Temp: 35.7241°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4100] Upper: 49.05%, Lower: 50.95%, Temp: 35.2051°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4150] Upper: 49.05%, Lower: 50.95%, Temp: 34.6861°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4200] Upper: 49.05%, Lower: 50.95%, Temp: 34.1671°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:07:42] Decision #23
+  Upper=49.5%  Lower=50.5%  Temp=35.63C
+  Level error: 4.50% (HIT)
+  Temp error:  0.63C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[4250] Upper: 49.05%, Lower: 50.95%, Temp: 33.6481°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4300] Upper: 49.05%, Lower: 50.95%, Temp: 33.1291°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4350] Upper: 49.05%, Lower: 50.95%, Temp: 32.6101°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4400] Upper: 49.05%, Lower: 50.95%, Temp: 32.0912°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4450] Upper: 49.05%, Lower: 50.95%, Temp: 31.5722°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:08:03] Decision #24
+  Upper=49.8%  Lower=50.2%  Temp=32.51C
+  Level error: 4.81% (HIT)
+  Temp error:  2.49C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[4500] Upper: 49.05%, Lower: 50.95%, Temp: 33.9096°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[4550] Upper: 49.05%, Lower: 50.95%, Temp: 37.0907°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[4600] Upper: 49.05%, Lower: 50.95%, Temp: 38.0073°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4650] Upper: 49.05%, Lower: 50.95%, Temp: 38.0063°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:08:25] Decision #25
+  Upper=48.6%  Lower=51.4%  Temp=34.50C
+  Level error: 3.57% (HIT)
+  Temp error:  0.50C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[4700] Upper: 49.05%, Lower: 50.95%, Temp: 37.7093°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4750] Upper: 49.05%, Lower: 50.95%, Temp: 37.1903°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4800] Upper: 49.05%, Lower: 50.95%, Temp: 36.6713°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[4850] Upper: 49.05%, Lower: 50.95%, Temp: 36.1523°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:08:46] Decision #26
+  Upper=51.2%  Lower=48.8%  Temp=38.17C
+  Level error: 6.24% (MISS)
+  Temp error:  3.17C (MISS)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[4900] Upper: 23.77%, Lower: 76.2301%, Temp: 36.7878°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[4950] Upper: 0%, Lower: 100%, Temp: 38.0004°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[5000] Upper: 0%, Lower: 100%, Temp: 37.9994°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[5050] Upper: 0%, Lower: 100%, Temp: 37.9984°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:09:07] Decision #27
+  Upper=0.0%  Lower=100.0%  Temp=37.94C
+  Level error: 45.00% (MISS)
+  Temp error:  2.94C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[5100] Upper: 16.35%, Lower: 83.65%, Temp: 37.9974°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[5150] Upper: 49.05%, Lower: 50.95%, Temp: 37.4784°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5200] Upper: 49.05%, Lower: 50.95%, Temp: 36.9594°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5250] Upper: 49.05%, Lower: 50.95%, Temp: 36.4404°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5300] Upper: 49.05%, Lower: 50.95%, Temp: 35.9214°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:09:28] Decision #28
+  Upper=48.2%  Lower=51.8%  Temp=37.61C
+  Level error: 3.24% (HIT)
+  Temp error:  2.61C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[5350] Upper: 49.05%, Lower: 50.95%, Temp: 35.4024°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5400] Upper: 49.05%, Lower: 50.95%, Temp: 34.8834°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:09:40] Decision #29
+  Upper=50.9%  Lower=49.1%  Temp=35.11C
+  Level error: 5.87% (MISS)
+  Temp error:  0.11C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[5450] Upper: 0%, Lower: 100%, Temp: 36.7769°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[5500] Upper: 0%, Lower: 100%, Temp: 38.0438°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:09:52] Decision #30
+  Upper=0.0%  Lower=100.0%  Temp=37.39C
+  Level error: 45.00% (MISS)
+  Temp error:  2.39C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[5550] Upper: 49.05%, Lower: 50.95%, Temp: 37.8405°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5600] Upper: 49.05%, Lower: 50.95%, Temp: 37.3215°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5650] Upper: 49.05%, Lower: 50.95%, Temp: 36.8025°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5700] Upper: 49.05%, Lower: 50.95%, Temp: 36.2835°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:10:13] Decision #31
+  Upper=49.6%  Lower=50.4%  Temp=37.73C
+  Level error: 4.56% (HIT)
+  Temp error:  2.73C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[5750] Upper: 49.05%, Lower: 50.95%, Temp: 35.7645°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5800] Upper: 49.05%, Lower: 50.95%, Temp: 35.2456°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5850] Upper: 49.05%, Lower: 50.95%, Temp: 34.7266°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5900] Upper: 49.05%, Lower: 50.95%, Temp: 34.2076°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[5950] Upper: 49.05%, Lower: 50.95%, Temp: 33.6886°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:10:34] Decision #32
+  Upper=48.6%  Lower=51.4%  Temp=34.10C
+  Level error: 3.61% (HIT)
+  Temp error:  0.90C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[6000] Upper: 49.05%, Lower: 50.95%, Temp: 33.1696°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6050] Upper: 49.05%, Lower: 50.95%, Temp: 32.6506°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6100] Upper: 49.05%, Lower: 50.95%, Temp: 32.1316°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6150] Upper: 49.05%, Lower: 50.95%, Temp: 31.6126°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:10:55] Decision #33
+  Upper=50.8%  Lower=49.2%  Temp=33.24C
+  Level error: 5.80% (MISS)
+  Temp error:  1.76C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[6200] Upper: 0%, Lower: 100%, Temp: 33.7281°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[6250] Upper: 0%, Lower: 100%, Temp: 36.9091°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[6300] Upper: 0%, Lower: 100%, Temp: 38.0379°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[6350] Upper: 0%, Lower: 100%, Temp: 38.0369°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:11:17] Decision #34
+  Upper=0.0%  Lower=100.0%  Temp=34.63C
+  Level error: 45.00% (MISS)
+  Temp error:  0.37C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[6400] Upper: 49.05%, Lower: 50.95%, Temp: 37.8238°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6450] Upper: 49.05%, Lower: 50.95%, Temp: 37.3048°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6500] Upper: 49.05%, Lower: 50.95%, Temp: 36.7858°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6550] Upper: 49.05%, Lower: 50.95%, Temp: 36.2668°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:11:38] Decision #35
+  Upper=48.5%  Lower=51.5%  Temp=37.58C
+  Level error: 3.46% (HIT)
+  Temp error:  2.58C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[6600] Upper: 49.05%, Lower: 50.95%, Temp: 35.7478°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6650] Upper: 49.05%, Lower: 50.95%, Temp: 35.2288°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6700] Upper: 49.05%, Lower: 50.95%, Temp: 34.7098°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6750] Upper: 49.05%, Lower: 50.95%, Temp: 34.1908°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:11:59] Decision #36
+  Upper=49.8%  Lower=50.2%  Temp=35.45C
+  Level error: 4.77% (HIT)
+  Temp error:  0.45C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[6800] Upper: 49.05%, Lower: 50.95%, Temp: 33.6718°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6850] Upper: 49.05%, Lower: 50.95%, Temp: 33.1529°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6900] Upper: 49.05%, Lower: 50.95%, Temp: 32.6339°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[6950] Upper: 49.05%, Lower: 50.95%, Temp: 32.1149°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7000] Upper: 49.05%, Lower: 50.95%, Temp: 31.5959°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:12:20] Decision #37
+  Upper=47.9%  Lower=52.1%  Temp=33.05C
+  Level error: 2.93% (HIT)
+  Temp error:  1.95C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[7050] Upper: 49.05%, Lower: 50.95%, Temp: 34.3773°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[7100] Upper: 49.05%, Lower: 50.95%, Temp: 37.5584°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[7150] Upper: 49.05%, Lower: 50.95%, Temp: 38.031°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7200] Upper: 49.05%, Lower: 50.95%, Temp: 38.03°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:12:42] Decision #38
+  Upper=47.5%  Lower=52.5%  Temp=35.21C
+  Level error: 2.47% (HIT)
+  Temp error:  0.21C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[7250] Upper: 49.05%, Lower: 50.95%, Temp: 37.733°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7300] Upper: 49.05%, Lower: 50.95%, Temp: 37.214°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7350] Upper: 49.05%, Lower: 50.95%, Temp: 36.695°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7400] Upper: 49.05%, Lower: 50.95%, Temp: 36.1761°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:13:03] Decision #39
+  Upper=48.5%  Lower=51.5%  Temp=38.15C
+  Level error: 3.48% (HIT)
+  Temp error:  3.15C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[7450] Upper: 49.05%, Lower: 50.95%, Temp: 35.6571°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7500] Upper: 49.05%, Lower: 50.95%, Temp: 35.1381°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7550] Upper: 49.05%, Lower: 50.95%, Temp: 34.6191°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7600] Upper: 49.05%, Lower: 50.95%, Temp: 34.1001°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:13:24] Decision #40
+  Upper=49.3%  Lower=50.7%  Temp=35.91C
+  Level error: 4.31% (HIT)
+  Temp error:  0.91C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[7650] Upper: 49.05%, Lower: 50.95%, Temp: 33.5811°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7700] Upper: 49.05%, Lower: 50.95%, Temp: 33.0621°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7750] Upper: 49.05%, Lower: 50.95%, Temp: 32.5431°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[7800] Upper: 49.05%, Lower: 50.95%, Temp: 32.0241°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:13:45] Decision #41
+  Upper=47.7%  Lower=52.3%  Temp=33.32C
+  Level error: 2.69% (HIT)
+  Temp error:  1.68C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[7850] Upper: 49.05%, Lower: 50.95%, Temp: 31.6975°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[7900] Upper: 49.05%, Lower: 50.95%, Temp: 34.8786°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[7950] Upper: 49.05%, Lower: 50.95%, Temp: 38.0597°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8000] Upper: 49.05%, Lower: 50.95%, Temp: 38.0143°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8050] Upper: 49.05%, Lower: 50.95%, Temp: 38.0133°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:14:07] Decision #42
+  Upper=48.0%  Lower=52.0%  Temp=34.23C
+  Level error: 3.00% (HIT)
+  Temp error:  0.77C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[8100] Upper: 49.05%, Lower: 50.95%, Temp: 37.5683°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8150] Upper: 49.05%, Lower: 50.95%, Temp: 37.0493°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8200] Upper: 49.05%, Lower: 50.95%, Temp: 36.5303°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8250] Upper: 49.05%, Lower: 50.95%, Temp: 36.0113°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:14:28] Decision #43
+  Upper=49.1%  Lower=50.9%  Temp=36.62C
+  Level error: 4.13% (HIT)
+  Temp error:  1.62C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[8300] Upper: 49.05%, Lower: 50.95%, Temp: 35.4923°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8350] Upper: 49.05%, Lower: 50.95%, Temp: 34.9733°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8400] Upper: 49.05%, Lower: 50.95%, Temp: 34.4543°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8450] Upper: 49.05%, Lower: 50.95%, Temp: 33.9354°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:14:49] Decision #44
+  Upper=49.5%  Lower=50.5%  Temp=35.65C
+  Level error: 4.45% (HIT)
+  Temp error:  0.65C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[8500] Upper: 49.05%, Lower: 50.95%, Temp: 33.4164°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8550] Upper: 49.05%, Lower: 50.95%, Temp: 32.8974°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "level on target; temp low, heater on"} If you want to add more history or adjust the targets, please let me know. Otherwise, 
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: level on target; temp low, heater on
+
+[02:15:00] Decision #45
+  Upper=46.7%  Lower=53.3%  Temp=33.61C
+  Level error: 1.71% (HIT)
+  Temp error:  1.39C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[8600] Upper: 49.05%, Lower: 50.95%, Temp: 33.3108°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[8650] Upper: 49.05%, Lower: 50.95%, Temp: 36.4919°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[8700] Upper: 49.05%, Lower: 50.95%, Temp: 38.0005°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8750] Upper: 49.05%, Lower: 50.95%, Temp: 37.9995°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:15:22] Decision #46
+  Upper=49.0%  Lower=51.0%  Temp=36.05C
+  Level error: 4.00% (HIT)
+  Temp error:  1.05C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[8800] Upper: 49.05%, Lower: 50.95%, Temp: 37.9985°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8850] Upper: 49.05%, Lower: 50.95%, Temp: 37.4795°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8900] Upper: 49.05%, Lower: 50.95%, Temp: 36.9605°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[8950] Upper: 49.05%, Lower: 50.95%, Temp: 36.4415°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9000] Upper: 49.05%, Lower: 50.95%, Temp: 35.9225°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:15:43] Decision #47
+  Upper=48.5%  Lower=51.5%  Temp=37.41C
+  Level error: 3.49% (HIT)
+  Temp error:  2.41C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[9050] Upper: 49.05%, Lower: 50.95%, Temp: 35.4035°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9100] Upper: 49.05%, Lower: 50.95%, Temp: 34.8846°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9150] Upper: 49.05%, Lower: 50.95%, Temp: 34.3656°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9200] Upper: 49.05%, Lower: 50.95%, Temp: 33.8466°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:16:04] Decision #48
+  Upper=49.9%  Lower=50.1%  Temp=35.78C
+  Level error: 4.85% (HIT)
+  Temp error:  0.78C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[9250] Upper: 49.05%, Lower: 50.95%, Temp: 33.3276°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9300] Upper: 49.05%, Lower: 50.95%, Temp: 32.8086°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9350] Upper: 49.05%, Lower: 50.95%, Temp: 32.2896°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9400] Upper: 49.05%, Lower: 50.95%, Temp: 31.7706°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwis
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:16:26] Decision #49
+  Upper=49.1%  Lower=50.9%  Temp=33.02C
+  Level error: 4.13% (HIT)
+  Temp error:  1.98C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[9450] Upper: 49.05%, Lower: 50.95%, Temp: 32.48°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[9500] Upper: 49.05%, Lower: 50.95%, Temp: 35.6611°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[9550] Upper: 49.05%, Lower: 50.95%, Temp: 38.038°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9600] Upper: 49.05%, Lower: 50.95%, Temp: 38.037°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:16:47] Decision #50
+  Upper=49.6%  Lower=50.4%  Temp=34.70C
+  Level error: 4.64% (HIT)
+  Temp error:  0.30C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[9650] Upper: 49.05%, Lower: 50.95%, Temp: 37.9818°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9700] Upper: 49.05%, Lower: 50.95%, Temp: 37.4628°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9750] Upper: 49.05%, Lower: 50.95%, Temp: 36.9438°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9800] Upper: 49.05%, Lower: 50.95%, Temp: 36.4248°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9850] Upper: 49.05%, Lower: 50.95%, Temp: 35.9058°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:17:09] Decision #51
+  Upper=47.9%  Lower=52.1%  Temp=37.71C
+  Level error: 2.91% (HIT)
+  Temp error:  2.71C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[9900] Upper: 49.05%, Lower: 50.95%, Temp: 35.3868°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[9950] Upper: 49.05%, Lower: 50.95%, Temp: 34.8678°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10000] Upper: 49.05%, Lower: 50.95%, Temp: 34.3488°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10050] Upper: 49.05%, Lower: 50.95%, Temp: 33.8298°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:17:30] Decision #52
+  Upper=48.6%  Lower=51.4%  Temp=35.82C
+  Level error: 3.57% (HIT)
+  Temp error:  0.82C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[10100] Upper: 49.05%, Lower: 50.95%, Temp: 33.3108°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10150] Upper: 49.05%, Lower: 50.95%, Temp: 32.7919°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10200] Upper: 49.05%, Lower: 50.95%, Temp: 32.2729°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10250] Upper: 49.05%, Lower: 50.95%, Temp: 31.7539°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:17:51] Decision #53
+  Upper=48.6%  Lower=51.4%  Temp=32.80C
+  Level error: 3.58% (HIT)
+  Temp error:  2.20C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[10300] Upper: 49.05%, Lower: 50.95%, Temp: 32.6113°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[10350] Upper: 49.05%, Lower: 50.95%, Temp: 35.7924°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[10400] Upper: 49.05%, Lower: 50.95%, Temp: 38.041°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10450] Upper: 49.05%, Lower: 50.95%, Temp: 38.04°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:18:13] Decision #54
+  Upper=49.2%  Lower=50.8%  Temp=35.26C
+  Level error: 4.20% (HIT)
+  Temp error:  0.26C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[10500] Upper: 49.05%, Lower: 50.95%, Temp: 37.965°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10550] Upper: 49.05%, Lower: 50.95%, Temp: 37.446°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10600] Upper: 49.05%, Lower: 50.95%, Temp: 36.927°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10650] Upper: 49.05%, Lower: 50.95%, Temp: 36.408°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10700] Upper: 49.05%, Lower: 50.95%, Temp: 35.8891°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:18:34] Decision #55
+  Upper=50.2%  Lower=49.8%  Temp=37.09C
+  Level error: 5.19% (MISS)
+  Temp error:  2.09C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[10750] Upper: 0%, Lower: 100%, Temp: 38.0341°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[10800] Upper: 0%, Lower: 100%, Temp: 38.0331°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:18:45] Decision #56
+  Upper=0.0%  Lower=100.0%  Temp=38.36C
+  Level error: 45.00% (MISS)
+  Temp error:  3.36C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[10850] Upper: 49.05%, Lower: 50.95%, Temp: 37.6621°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10900] Upper: 49.05%, Lower: 50.95%, Temp: 37.1431°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[10950] Upper: 49.05%, Lower: 50.95%, Temp: 36.6241°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11000] Upper: 49.05%, Lower: 50.95%, Temp: 36.1051°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:19:06] Decision #57
+  Upper=50.1%  Lower=49.9%  Temp=38.26C
+  Level error: 5.13% (MISS)
+  Temp error:  3.26C (MISS)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[11050] Upper: 9.54999%, Lower: 90.4501%, Temp: 37.4066°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[11100] Upper: 0%, Lower: 100%, Temp: 38.0272°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:19:18] Decision #58
+  Upper=0.0%  Lower=100.0%  Temp=38.21C
+  Level error: 45.00% (MISS)
+  Temp error:  3.21C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[11150] Upper: 32.7%, Lower: 67.3%, Temp: 37.9522°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[11200] Upper: 49.05%, Lower: 50.95%, Temp: 37.4332°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11250] Upper: 49.05%, Lower: 50.95%, Temp: 36.9142°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11300] Upper: 49.05%, Lower: 50.95%, Temp: 36.3952°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11350] Upper: 49.05%, Lower: 50.95%, Temp: 35.8762°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:19:39] Decision #59
+  Upper=50.3%  Lower=49.7%  Temp=38.12C
+  Level error: 5.34% (MISS)
+  Temp error:  3.12C (MISS)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[11400] Upper: 0%, Lower: 100%, Temp: 38.0213°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[11450] Upper: 0%, Lower: 100%, Temp: 38.0203°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:19:51] Decision #60
+  Upper=0.0%  Lower=100.0%  Temp=37.92C
+  Level error: 45.00% (MISS)
+  Temp error:  2.92C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[11500] Upper: 49.05%, Lower: 50.95%, Temp: 37.6493°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11550] Upper: 49.05%, Lower: 50.95%, Temp: 37.1303°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11600] Upper: 49.05%, Lower: 50.95%, Temp: 36.6113°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11650] Upper: 49.05%, Lower: 50.95%, Temp: 36.0923°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:20:12] Decision #61
+  Upper=48.5%  Lower=51.5%  Temp=38.76C
+  Level error: 3.47% (HIT)
+  Temp error:  3.76C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[11700] Upper: 49.05%, Lower: 50.95%, Temp: 35.5733°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11750] Upper: 49.05%, Lower: 50.95%, Temp: 35.0543°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11800] Upper: 49.05%, Lower: 50.95%, Temp: 34.5353°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11850] Upper: 49.05%, Lower: 50.95%, Temp: 34.0163°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:20:34] Decision #62
+  Upper=49.7%  Lower=50.3%  Temp=35.42C
+  Level error: 4.73% (HIT)
+  Temp error:  0.42C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[11900] Upper: 49.05%, Lower: 50.95%, Temp: 33.4974°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[11950] Upper: 49.05%, Lower: 50.95%, Temp: 32.9784°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12000] Upper: 49.05%, Lower: 50.95%, Temp: 32.4594°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12050] Upper: 49.05%, Lower: 50.95%, Temp: 31.9404°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12100] Upper: 49.05%, Lower: 50.95%, Temp: 31.4214°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:20:55] Decision #63
+  Upper=49.3%  Lower=50.7%  Temp=33.12C
+  Level error: 4.26% (HIT)
+  Temp error:  1.88C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[12150] Upper: 49.05%, Lower: 50.95%, Temp: 34.4989°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[12200] Upper: 49.05%, Lower: 50.95%, Temp: 37.6799°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:21:07] Decision #64
+  Upper=50.5%  Lower=49.5%  Temp=34.70C
+  Level error: 5.52% (MISS)
+  Temp error:  0.30C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[12250] Upper: 0%, Lower: 100%, Temp: 38.0045°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[12300] Upper: 0%, Lower: 100%, Temp: 38.0035°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:21:18] Decision #65
+  Upper=0.0%  Lower=100.0%  Temp=37.84C
+  Level error: 45.00% (MISS)
+  Temp error:  2.84C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[12350] Upper: 49.05%, Lower: 50.95%, Temp: 37.7805°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12400] Upper: 49.05%, Lower: 50.95%, Temp: 37.2615°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12450] Upper: 49.05%, Lower: 50.95%, Temp: 36.7425°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12500] Upper: 49.05%, Lower: 50.95%, Temp: 36.2236°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:21:39] Decision #66
+  Upper=50.2%  Lower=49.8%  Temp=37.64C
+  Level error: 5.25% (MISS)
+  Temp error:  2.64C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[12550] Upper: 31.67%, Lower: 68.3301%, Temp: 36.489°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[12600] Upper: 0%, Lower: 100%, Temp: 37.9976°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[12650] Upper: 0%, Lower: 100%, Temp: 37.9966°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[12700] Upper: 0%, Lower: 100%, Temp: 37.9956°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[12750] Upper: 0%, Lower: 100%, Temp: 37.9946°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:22:01] Decision #67
+  Upper=0.0%  Lower=100.0%  Temp=38.28C
+  Level error: 45.00% (MISS)
+  Temp error:  3.28C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[12800] Upper: 49.05%, Lower: 50.95%, Temp: 37.4756°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12850] Upper: 49.05%, Lower: 50.95%, Temp: 36.9566°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12900] Upper: 49.05%, Lower: 50.95%, Temp: 36.4376°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[12950] Upper: 49.05%, Lower: 50.95%, Temp: 35.9186°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:22:22] Decision #68
+  Upper=48.6%  Lower=51.4%  Temp=37.43C
+  Level error: 3.60% (HIT)
+  Temp error:  2.43C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[13000] Upper: 49.05%, Lower: 50.95%, Temp: 35.3996°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13050] Upper: 49.05%, Lower: 50.95%, Temp: 34.8807°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13100] Upper: 49.05%, Lower: 50.95%, Temp: 34.3617°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13150] Upper: 49.05%, Lower: 50.95%, Temp: 33.8427°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response to be more user-friendly, you c
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:22:43] Decision #69
+  Upper=48.7%  Lower=51.3%  Temp=35.27C
+  Level error: 3.73% (HIT)
+  Temp error:  0.27C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[13200] Upper: 49.05%, Lower: 50.95%, Temp: 33.3237°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13250] Upper: 49.05%, Lower: 50.95%, Temp: 32.8047°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13300] Upper: 49.05%, Lower: 50.95%, Temp: 32.2857°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13350] Upper: 49.05%, Lower: 50.95%, Temp: 31.7667°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:23:05] Decision #70
+  Upper=50.2%  Lower=49.8%  Temp=32.75C
+  Level error: 5.23% (MISS)
+  Temp error:  2.25C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[13400] Upper: 23.77%, Lower: 76.2301%, Temp: 32.4021°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[13450] Upper: 0%, Lower: 100%, Temp: 35.5832°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[13500] Upper: 0%, Lower: 100%, Temp: 38.0341°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[13550] Upper: 0%, Lower: 100%, Temp: 38.043°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:23:26] Decision #71
+  Upper=0.0%  Lower=100.0%  Temp=34.64C
+  Level error: 45.00% (MISS)
+  Temp error:  0.36C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[13600] Upper: 13.08%, Lower: 86.92%, Temp: 37.9778°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[13650] Upper: 49.05%, Lower: 50.95%, Temp: 37.4589°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13700] Upper: 49.05%, Lower: 50.95%, Temp: 36.9399°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13750] Upper: 49.05%, Lower: 50.95%, Temp: 36.4209°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13800] Upper: 49.05%, Lower: 50.95%, Temp: 35.9019°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:23:47] Decision #72
+  Upper=49.7%  Lower=50.3%  Temp=37.33C
+  Level error: 4.71% (HIT)
+  Temp error:  2.33C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[13850] Upper: 49.05%, Lower: 50.95%, Temp: 35.3829°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[13900] Upper: 49.05%, Lower: 50.95%, Temp: 34.8639°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:23:59] Decision #73
+  Upper=51.0%  Lower=49.0%  Temp=35.48C
+  Level error: 6.00% (MISS)
+  Temp error:  0.48C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[13950] Upper: 9.54999%, Lower: 90.4501%, Temp: 36.1654°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[14000] Upper: 0%, Lower: 100%, Temp: 38.0341°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[14050] Upper: 0%, Lower: 100%, Temp: 38.0331°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[14100] Upper: 0%, Lower: 100%, Temp: 38.042°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:24:21] Decision #74
+  Upper=0.0%  Lower=100.0%  Temp=36.88C
+  Level error: 45.00% (MISS)
+  Temp error:  1.88C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[14150] Upper: 45.78%, Lower: 54.22%, Temp: 37.893°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[14200] Upper: 49.05%, Lower: 50.95%, Temp: 37.374°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14250] Upper: 49.05%, Lower: 50.95%, Temp: 36.855°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14300] Upper: 49.05%, Lower: 50.95%, Temp: 36.336°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:24:41] Decision #75
+  Upper=48.1%  Lower=51.9%  Temp=37.96C
+  Level error: 3.13% (HIT)
+  Temp error:  2.96C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[14350] Upper: 49.05%, Lower: 50.95%, Temp: 35.817°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14400] Upper: 49.05%, Lower: 50.95%, Temp: 35.298°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14450] Upper: 49.05%, Lower: 50.95%, Temp: 34.779°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14500] Upper: 49.05%, Lower: 50.95%, Temp: 34.26°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14550] Upper: 49.05%, Lower: 50.95%, Temp: 33.7411°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Ot
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:25:03] Decision #76
+  Upper=49.9%  Lower=50.1%  Temp=34.94C
+  Level error: 4.94% (HIT)
+  Temp error:  0.06C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[14600] Upper: 49.05%, Lower: 50.95%, Temp: 33.2221°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14650] Upper: 49.05%, Lower: 50.95%, Temp: 32.7031°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14700] Upper: 49.05%, Lower: 50.95%, Temp: 32.1841°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[14750] Upper: 49.05%, Lower: 50.95%, Temp: 31.6651°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwis
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:25:25] Decision #77
+  Upper=48.8%  Lower=51.2%  Temp=31.86C
+  Level error: 3.79% (HIT)
+  Temp error:  3.14C (MISS)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[14800] Upper: 49.05%, Lower: 50.95%, Temp: 33.3365°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[14850] Upper: 49.05%, Lower: 50.95%, Temp: 36.5176°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:25:37] Decision #78
+  Upper=50.0%  Lower=50.0%  Temp=34.47C
+  Level error: 4.97% (HIT)
+  Temp error:  0.53C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[14900] Upper: 28.51%, Lower: 71.4901%, Temp: 38.0262°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[14950] Upper: 0%, Lower: 100%, Temp: 38.0252°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[15000] Upper: 0%, Lower: 100%, Temp: 38.0242°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[15050] Upper: 0%, Lower: 100%, Temp: 38.0232°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:25:58] Decision #79
+  Upper=0.0%  Lower=100.0%  Temp=37.46C
+  Level error: 45.00% (MISS)
+  Temp error:  2.46C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[15100] Upper: 6.54%, Lower: 93.46%, Temp: 38.0222°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[15150] Upper: 49.05%, Lower: 50.95%, Temp: 37.5032°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15200] Upper: 49.05%, Lower: 50.95%, Temp: 36.9842°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15250] Upper: 49.05%, Lower: 50.95%, Temp: 36.4652°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15300] Upper: 49.05%, Lower: 50.95%, Temp: 35.9463°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:26:19] Decision #80
+  Upper=49.1%  Lower=50.9%  Temp=36.76C
+  Level error: 4.13% (HIT)
+  Temp error:  1.76C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[15350] Upper: 49.05%, Lower: 50.95%, Temp: 35.4273°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15400] Upper: 49.05%, Lower: 50.95%, Temp: 34.9083°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15450] Upper: 49.05%, Lower: 50.95%, Temp: 34.3893°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15500] Upper: 49.05%, Lower: 50.95%, Temp: 33.8703°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:26:40] Decision #81
+  Upper=48.1%  Lower=51.9%  Temp=34.59C
+  Level error: 3.09% (HIT)
+  Temp error:  0.41C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[15550] Upper: 49.05%, Lower: 50.95%, Temp: 33.3513°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15600] Upper: 49.05%, Lower: 50.95%, Temp: 32.8323°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15650] Upper: 49.05%, Lower: 50.95%, Temp: 32.3133°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15700] Upper: 49.05%, Lower: 50.95%, Temp: 31.7943°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwis
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:27:01] Decision #82
+  Upper=49.8%  Lower=50.2%  Temp=32.68C
+  Level error: 4.75% (HIT)
+  Temp error:  2.32C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[15750] Upper: 49.05%, Lower: 50.95%, Temp: 32.9478°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[15800] Upper: 49.05%, Lower: 50.95%, Temp: 36.1288°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[15850] Upper: 49.05%, Lower: 50.95%, Temp: 38.0075°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[15900] Upper: 49.05%, Lower: 50.95%, Temp: 38.0065°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:27:23] Decision #83
+  Upper=50.8%  Lower=49.2%  Temp=33.96C
+  Level error: 5.75% (MISS)
+  Temp error:  1.04C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[15950] Upper: 31.67%, Lower: 68.3301%, Temp: 38.0055°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[16000] Upper: 0%, Lower: 100%, Temp: 38.0045°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:27:34] Decision #84
+  Upper=0.0%  Lower=100.0%  Temp=38.06C
+  Level error: 45.00% (MISS)
+  Temp error:  3.06C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[16050] Upper: 6.54%, Lower: 93.46%, Temp: 38.0035°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[16100] Upper: 49.05%, Lower: 50.95%, Temp: 37.4845°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16150] Upper: 49.05%, Lower: 50.95%, Temp: 36.9655°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16200] Upper: 49.05%, Lower: 50.95%, Temp: 36.4465°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16250] Upper: 49.05%, Lower: 50.95%, Temp: 35.9275°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:27:55] Decision #85
+  Upper=49.0%  Lower=51.0%  Temp=36.54C
+  Level error: 4.05% (HIT)
+  Temp error:  1.54C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[16300] Upper: 49.05%, Lower: 50.95%, Temp: 35.4085°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16350] Upper: 49.05%, Lower: 50.95%, Temp: 34.8895°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16400] Upper: 49.05%, Lower: 50.95%, Temp: 34.3705°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16450] Upper: 49.05%, Lower: 50.95%, Temp: 33.8515°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:28:17] Decision #86
+  Upper=49.3%  Lower=50.7%  Temp=35.75C
+  Level error: 4.32% (HIT)
+  Temp error:  0.75C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[16500] Upper: 49.05%, Lower: 50.95%, Temp: 33.3325°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16550] Upper: 49.05%, Lower: 50.95%, Temp: 32.8136°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16600] Upper: 49.05%, Lower: 50.95%, Temp: 32.2946°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16650] Upper: 49.05%, Lower: 50.95%, Temp: 31.7756°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the next step, type 'next'! If you want to reset, ty
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:28:38] Decision #87
+  Upper=48.8%  Lower=51.2%  Temp=32.66C
+  Level error: 3.82% (HIT)
+  Temp error:  2.34C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[16700] Upper: 49.05%, Lower: 50.95%, Temp: 32.337°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[16750] Upper: 49.05%, Lower: 50.95%, Temp: 35.5181°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[16800] Upper: 49.05%, Lower: 50.95%, Temp: 38.043°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16850] Upper: 49.05%, Lower: 50.95%, Temp: 38.042°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:29:00] Decision #88
+  Upper=49.4%  Lower=50.6%  Temp=34.44C
+  Level error: 4.41% (HIT)
+  Temp error:  0.56C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[16900] Upper: 49.05%, Lower: 50.95%, Temp: 37.9867°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[16950] Upper: 49.05%, Lower: 50.95%, Temp: 37.4677°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17000] Upper: 49.05%, Lower: 50.95%, Temp: 36.9487°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17050] Upper: 49.05%, Lower: 50.95%, Temp: 36.4297°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17100] Upper: 49.05%, Lower: 50.95%, Temp: 35.9108°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:29:21] Decision #89
+  Upper=49.8%  Lower=50.2%  Temp=38.01C
+  Level error: 4.79% (HIT)
+  Temp error:  3.01C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[17150] Upper: 49.05%, Lower: 50.95%, Temp: 35.3918°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17200] Upper: 49.05%, Lower: 50.95%, Temp: 34.8728°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17250] Upper: 49.05%, Lower: 50.95%, Temp: 34.3538°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17300] Upper: 49.05%, Lower: 50.95%, Temp: 33.8348°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:29:42] Decision #90
+  Upper=48.6%  Lower=51.4%  Temp=35.86C
+  Level error: 3.56% (HIT)
+  Temp error:  0.86C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[17350] Upper: 49.05%, Lower: 50.95%, Temp: 33.3158°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17400] Upper: 49.05%, Lower: 50.95%, Temp: 32.7968°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17450] Upper: 49.05%, Lower: 50.95%, Temp: 32.2778°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17500] Upper: 49.05%, Lower: 50.95%, Temp: 31.7588°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:30:03] Decision #91
+  Upper=48.3%  Lower=51.7%  Temp=32.71C
+  Level error: 3.31% (HIT)
+  Temp error:  2.29C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[17550] Upper: 49.05%, Lower: 50.95%, Temp: 33.0603°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[17600] Upper: 49.05%, Lower: 50.95%, Temp: 36.2413°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:30:15] Decision #92
+  Upper=51.0%  Lower=49.0%  Temp=35.71C
+  Level error: 6.00% (MISS)
+  Temp error:  0.71C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[17650] Upper: 36.41%, Lower: 63.59%, Temp: 38.0361°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[17700] Upper: 0%, Lower: 100%, Temp: 38.0351°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[17750] Upper: 0%, Lower: 100%, Temp: 38.0341°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:30:27] Decision #93
+  Upper=0.0%  Lower=100.0%  Temp=37.90C
+  Level error: 45.00% (MISS)
+  Temp error:  2.90C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[17800] Upper: 49.05%, Lower: 50.95%, Temp: 37.599°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17850] Upper: 49.05%, Lower: 50.95%, Temp: 37.08°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17900] Upper: 49.05%, Lower: 50.95%, Temp: 36.561°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[17950] Upper: 49.05%, Lower: 50.95%, Temp: 36.042°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:30:48] Decision #94
+  Upper=49.2%  Lower=50.8%  Temp=37.80C
+  Level error: 4.23% (HIT)
+  Temp error:  2.80C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[18000] Upper: 49.05%, Lower: 50.95%, Temp: 35.523°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18050] Upper: 49.05%, Lower: 50.95%, Temp: 35.004°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18100] Upper: 49.05%, Lower: 50.95%, Temp: 34.485°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18150] Upper: 49.05%, Lower: 50.95%, Temp: 33.966°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:31:10] Decision #95
+  Upper=49.0%  Lower=51.0%  Temp=35.25C
+  Level error: 3.99% (HIT)
+  Temp error:  0.25C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[18200] Upper: 49.05%, Lower: 50.95%, Temp: 33.4471°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18250] Upper: 49.05%, Lower: 50.95%, Temp: 32.9281°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18300] Upper: 49.05%, Lower: 50.95%, Temp: 32.4091°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18350] Upper: 49.05%, Lower: 50.95%, Temp: 31.8901°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:31:31] Decision #96
+  Upper=47.8%  Lower=52.2%  Temp=32.99C
+  Level error: 2.80% (HIT)
+  Temp error:  2.01C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[18400] Upper: 49.05%, Lower: 50.95%, Temp: 31.4895°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[18450] Upper: 49.05%, Lower: 50.95%, Temp: 34.6706°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[18500] Upper: 49.05%, Lower: 50.95%, Temp: 37.8516°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[18550] Upper: 49.05%, Lower: 50.95%, Temp: 38.0282°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18600] Upper: 49.05%, Lower: 50.95%, Temp: 38.0272°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:31:53] Decision #97
+  Upper=48.5%  Lower=51.5%  Temp=33.59C
+  Level error: 3.46% (HIT)
+  Temp error:  1.41C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[18650] Upper: 49.05%, Lower: 50.95%, Temp: 38.0262°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18700] Upper: 49.05%, Lower: 50.95%, Temp: 38.0252°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "level on target; temp high, heater off"} If you want to add more context or adjust the reason, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: level on target; temp high, heater off
+
+[02:32:03] Decision #98
+  Upper=46.8%  Lower=53.2%  Temp=37.26C
+  Level error: 1.81% (HIT)
+  Temp error:  2.26C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[18750] Upper: 49.05%, Lower: 50.95%, Temp: 37.6542°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18800] Upper: 49.05%, Lower: 50.95%, Temp: 37.1352°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18850] Upper: 49.05%, Lower: 50.95%, Temp: 36.6162°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[18900] Upper: 49.05%, Lower: 50.95%, Temp: 36.0972°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:32:25] Decision #99
+  Upper=49.9%  Lower=50.1%  Temp=37.03C
+  Level error: 4.86% (HIT)
+  Temp error:  2.03C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[18950] Upper: 49.05%, Lower: 50.95%, Temp: 35.5783°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19000] Upper: 49.05%, Lower: 50.95%, Temp: 35.0593°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19050] Upper: 49.05%, Lower: 50.95%, Temp: 34.5403°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19100] Upper: 49.05%, Lower: 50.95%, Temp: 34.0213°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:32:46] Decision #100
+  Upper=49.2%  Lower=50.8%  Temp=34.80C
+  Level error: 4.22% (HIT)
+  Temp error:  0.20C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[19150] Upper: 49.05%, Lower: 50.95%, Temp: 33.5023°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19200] Upper: 49.05%, Lower: 50.95%, Temp: 32.9833°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19250] Upper: 49.05%, Lower: 50.95%, Temp: 32.4643°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19300] Upper: 49.05%, Lower: 50.95%, Temp: 31.9453°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19350] Upper: 49.05%, Lower: 50.95%, Temp: 31.4263°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:33:07] Decision #101
+  Upper=50.3%  Lower=49.7%  Temp=33.07C
+  Level error: 5.29% (MISS)
+  Temp error:  1.93C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[19400] Upper: 0%, Lower: 100%, Temp: 34.5778°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[19450] Upper: 0%, Lower: 100%, Temp: 37.7589°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:33:19] Decision #102
+  Upper=0.0%  Lower=100.0%  Temp=34.50C
+  Level error: 45.00% (MISS)
+  Temp error:  0.50C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[19500] Upper: 49.05%, Lower: 50.95%, Temp: 37.7135°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19550] Upper: 49.05%, Lower: 50.95%, Temp: 37.1945°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19600] Upper: 49.05%, Lower: 50.95%, Temp: 36.6755°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19650] Upper: 49.05%, Lower: 50.95%, Temp: 36.1565°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:33:41] Decision #103
+  Upper=49.2%  Lower=50.8%  Temp=38.22C
+  Level error: 4.21% (HIT)
+  Temp error:  3.22C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[19700] Upper: 49.05%, Lower: 50.95%, Temp: 35.6375°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19750] Upper: 49.05%, Lower: 50.95%, Temp: 35.1185°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19800] Upper: 49.05%, Lower: 50.95%, Temp: 34.5995°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[19850] Upper: 49.05%, Lower: 50.95%, Temp: 34.0806°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:34:02] Decision #104
+  Upper=50.8%  Lower=49.2%  Temp=36.09C
+  Level error: 5.81% (MISS)
+  Temp error:  1.09C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[19900] Upper: 33.25%, Lower: 66.7501%, Temp: 34.272°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[19950] Upper: 0%, Lower: 100%, Temp: 37.4531°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[20000] Upper: 0%, Lower: 100%, Temp: 37.9997°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:34:14] Decision #105
+  Upper=0.0%  Lower=100.0%  Temp=37.40C
+  Level error: 45.00% (MISS)
+  Temp error:  2.40C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[20050] Upper: 49.05%, Lower: 50.95%, Temp: 37.5547°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20100] Upper: 49.05%, Lower: 50.95%, Temp: 37.0357°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20150] Upper: 49.05%, Lower: 50.95%, Temp: 36.5167°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20200] Upper: 49.05%, Lower: 50.95%, Temp: 35.9977°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:34:35] Decision #106
+  Upper=50.7%  Lower=49.3%  Temp=36.00C
+  Level error: 5.73% (MISS)
+  Temp error:  1.00C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[20250] Upper: 0%, Lower: 100%, Temp: 37.8912°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[20300] Upper: 0%, Lower: 100%, Temp: 37.9937°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[20350] Upper: 0%, Lower: 100%, Temp: 37.9927°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[20400] Upper: 0%, Lower: 100%, Temp: 37.9917°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:34:56] Decision #107
+  Upper=0.0%  Lower=100.0%  Temp=38.78C
+  Level error: 45.00% (MISS)
+  Temp error:  3.78C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[20450] Upper: 49.05%, Lower: 50.95%, Temp: 37.8427°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20500] Upper: 49.05%, Lower: 50.95%, Temp: 37.3237°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20550] Upper: 49.05%, Lower: 50.95%, Temp: 36.8048°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20600] Upper: 49.05%, Lower: 50.95%, Temp: 36.2858°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:35:18] Decision #108
+  Upper=49.0%  Lower=51.0%  Temp=38.61C
+  Level error: 3.96% (HIT)
+  Temp error:  3.61C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[20650] Upper: 49.05%, Lower: 50.95%, Temp: 35.7668°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20700] Upper: 49.05%, Lower: 50.95%, Temp: 35.2478°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20750] Upper: 49.05%, Lower: 50.95%, Temp: 34.7288°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20800] Upper: 49.05%, Lower: 50.95%, Temp: 34.2098°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20850] Upper: 49.05%, Lower: 50.95%, Temp: 33.6908°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:35:39] Decision #109
+  Upper=47.5%  Lower=52.5%  Temp=34.94C
+  Level error: 2.51% (HIT)
+  Temp error:  0.06C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[20900] Upper: 49.05%, Lower: 50.95%, Temp: 33.1718°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[20950] Upper: 49.05%, Lower: 50.95%, Temp: 32.6528°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21000] Upper: 49.05%, Lower: 50.95%, Temp: 32.1338°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21050] Upper: 49.05%, Lower: 50.95%, Temp: 31.6149°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:36:00] Decision #110
+  Upper=48.9%  Lower=51.1%  Temp=32.71C
+  Level error: 3.92% (HIT)
+  Temp error:  2.29C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[21100] Upper: 49.05%, Lower: 50.95%, Temp: 33.8043°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[21150] Upper: 49.05%, Lower: 50.95%, Temp: 36.9854°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[21200] Upper: 49.05%, Lower: 50.95%, Temp: 38.0401°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21250] Upper: 49.05%, Lower: 50.95%, Temp: 38.0391°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:36:22] Decision #111
+  Upper=47.9%  Lower=52.1%  Temp=34.48C
+  Level error: 2.88% (HIT)
+  Temp error:  0.52C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[21300] Upper: 49.05%, Lower: 50.95%, Temp: 37.752°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21350] Upper: 49.05%, Lower: 50.95%, Temp: 37.233°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21400] Upper: 49.05%, Lower: 50.95%, Temp: 36.714°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21450] Upper: 49.05%, Lower: 50.95%, Temp: 36.195°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:36:43] Decision #112
+  Upper=49.3%  Lower=50.7%  Temp=37.57C
+  Level error: 4.32% (HIT)
+  Temp error:  2.57C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[21500] Upper: 49.05%, Lower: 50.95%, Temp: 35.676°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21550] Upper: 49.05%, Lower: 50.95%, Temp: 35.157°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21600] Upper: 49.05%, Lower: 50.95%, Temp: 34.6381°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21650] Upper: 49.05%, Lower: 50.95%, Temp: 34.1191°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:37:04] Decision #113
+  Upper=48.7%  Lower=51.3%  Temp=35.14C
+  Level error: 3.67% (HIT)
+  Temp error:  0.14C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[21700] Upper: 49.05%, Lower: 50.95%, Temp: 33.6001°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21750] Upper: 49.05%, Lower: 50.95%, Temp: 33.0811°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21800] Upper: 49.05%, Lower: 50.95%, Temp: 32.5621°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21850] Upper: 49.05%, Lower: 50.95%, Temp: 32.0431°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[21900] Upper: 49.05%, Lower: 50.95%, Temp: 31.5241°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:37:26] Decision #114
+  Upper=51.0%  Lower=49.0%  Temp=33.16C
+  Level error: 6.00% (MISS)
+  Temp error:  1.84C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[21950] Upper: 0%, Lower: 100%, Temp: 34.0836°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[22000] Upper: 0%, Lower: 100%, Temp: 37.2646°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[22050] Upper: 0%, Lower: 100%, Temp: 38.0332°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[22100] Upper: 0%, Lower: 100%, Temp: 38.0322°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:37:47] Decision #115
+  Upper=0.0%  Lower=100.0%  Temp=34.54C
+  Level error: 45.00% (MISS)
+  Temp error:  0.46C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[22150] Upper: 49.05%, Lower: 50.95%, Temp: 37.7352°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22200] Upper: 49.05%, Lower: 50.95%, Temp: 37.2163°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22250] Upper: 49.05%, Lower: 50.95%, Temp: 36.6973°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22300] Upper: 49.05%, Lower: 50.95%, Temp: 36.1783°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:38:08] Decision #116
+  Upper=50.7%  Lower=49.3%  Temp=37.76C
+  Level error: 5.69% (MISS)
+  Temp error:  2.76C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[22350] Upper: 17.45%, Lower: 82.5501%, Temp: 37.1097°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[22400] Upper: 0%, Lower: 100%, Temp: 38.0263°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[22450] Upper: 0%, Lower: 100%, Temp: 38.0253°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[22500] Upper: 0%, Lower: 100%, Temp: 38.0243°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:38:30] Decision #117
+  Upper=0.0%  Lower=100.0%  Temp=37.90C
+  Level error: 45.00% (MISS)
+  Temp error:  2.90C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[22550] Upper: 26.16%, Lower: 73.84%, Temp: 37.9493°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[22600] Upper: 49.05%, Lower: 50.95%, Temp: 37.4303°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22650] Upper: 49.05%, Lower: 50.95%, Temp: 36.9113°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22700] Upper: 49.05%, Lower: 50.95%, Temp: 36.3923°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22750] Upper: 49.05%, Lower: 50.95%, Temp: 35.8733°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:38:51] Decision #118
+  Upper=49.7%  Lower=50.3%  Temp=37.75C
+  Level error: 4.71% (HIT)
+  Temp error:  2.75C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[22800] Upper: 49.05%, Lower: 50.95%, Temp: 35.3544°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22850] Upper: 49.05%, Lower: 50.95%, Temp: 34.8354°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22900] Upper: 49.05%, Lower: 50.95%, Temp: 34.3164°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[22950] Upper: 49.05%, Lower: 50.95%, Temp: 33.7974°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:39:13] Decision #119
+  Upper=49.9%  Lower=50.1%  Temp=35.94C
+  Level error: 4.90% (HIT)
+  Temp error:  0.94C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[23000] Upper: 49.05%, Lower: 50.95%, Temp: 33.2784°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23050] Upper: 49.05%, Lower: 50.95%, Temp: 32.7594°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23100] Upper: 49.05%, Lower: 50.95%, Temp: 32.2404°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23150] Upper: 49.05%, Lower: 50.95%, Temp: 31.7214°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwis
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:39:34] Decision #120
+  Upper=48.0%  Lower=52.0%  Temp=33.04C
+  Level error: 3.00% (HIT)
+  Temp error:  1.96C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[23200] Upper: 49.05%, Lower: 50.95%, Temp: 32.9489°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[23250] Upper: 49.05%, Lower: 50.95%, Temp: 36.1299°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[23300] Upper: 49.05%, Lower: 50.95%, Temp: 38.0086°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23350] Upper: 49.05%, Lower: 50.95%, Temp: 38.0076°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp in band, heater on"} If you want to know the previous response, I can tell you that the r
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater on
+
+[02:39:55] Decision #121
+  Upper=48.4%  Lower=51.6%  Temp=34.05C
+  Level error: 3.44% (HIT)
+  Temp error:  0.95C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[23400] Upper: 49.05%, Lower: 50.95%, Temp: 38.0066°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23450] Upper: 49.05%, Lower: 50.95%, Temp: 38.0056°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23500] Upper: 49.05%, Lower: 50.95%, Temp: 38.0045°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23550] Upper: 49.05%, Lower: 50.95%, Temp: 38.0035°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:40:17] Decision #122
+  Upper=49.2%  Lower=50.8%  Temp=37.69C
+  Level error: 4.21% (HIT)
+  Temp error:  2.69C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[23600] Upper: 49.05%, Lower: 50.95%, Temp: 38.0025°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23650] Upper: 49.05%, Lower: 50.95%, Temp: 37.4835°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23700] Upper: 49.05%, Lower: 50.95%, Temp: 36.9646°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23750] Upper: 49.05%, Lower: 50.95%, Temp: 36.4456°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23800] Upper: 49.05%, Lower: 50.95%, Temp: 35.9266°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:40:38] Decision #123
+  Upper=49.3%  Lower=50.7%  Temp=37.27C
+  Level error: 4.28% (HIT)
+  Temp error:  2.27C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[23850] Upper: 49.05%, Lower: 50.95%, Temp: 35.4076°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23900] Upper: 49.05%, Lower: 50.95%, Temp: 34.8886°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[23950] Upper: 49.05%, Lower: 50.95%, Temp: 34.3696°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24000] Upper: 49.05%, Lower: 50.95%, Temp: 33.8506°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:40:59] Decision #124
+  Upper=49.5%  Lower=50.5%  Temp=35.48C
+  Level error: 4.50% (HIT)
+  Temp error:  0.48C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[24050] Upper: 49.05%, Lower: 50.95%, Temp: 33.3316°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24100] Upper: 49.05%, Lower: 50.95%, Temp: 32.8126°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24150] Upper: 49.05%, Lower: 50.95%, Temp: 32.2936°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24200] Upper: 49.05%, Lower: 50.95%, Temp: 31.7747°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:41:21] Decision #125
+  Upper=48.8%  Lower=51.2%  Temp=33.49C
+  Level error: 3.78% (HIT)
+  Temp error:  1.51C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[24250] Upper: 49.05%, Lower: 50.95%, Temp: 32.5581°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[24300] Upper: 49.05%, Lower: 50.95%, Temp: 35.7392°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[24350] Upper: 49.05%, Lower: 50.95%, Temp: 38.0421°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24400] Upper: 49.05%, Lower: 50.95%, Temp: 38.0411°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:41:42] Decision #126
+  Upper=48.2%  Lower=51.8%  Temp=34.34C
+  Level error: 3.17% (HIT)
+  Temp error:  0.66C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[24450] Upper: 49.05%, Lower: 50.95%, Temp: 37.9858°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24500] Upper: 49.05%, Lower: 50.95%, Temp: 37.4668°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24550] Upper: 49.05%, Lower: 50.95%, Temp: 36.9478°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24600] Upper: 49.05%, Lower: 50.95%, Temp: 36.4288°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24650] Upper: 49.05%, Lower: 50.95%, Temp: 35.9098°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:42:03] Decision #127
+  Upper=49.6%  Lower=50.4%  Temp=38.52C
+  Level error: 4.65% (HIT)
+  Temp error:  3.52C (MISS)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[24700] Upper: 49.05%, Lower: 50.95%, Temp: 35.3908°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24750] Upper: 49.05%, Lower: 50.95%, Temp: 34.8719°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24800] Upper: 49.05%, Lower: 50.95%, Temp: 34.3529°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24850] Upper: 49.05%, Lower: 50.95%, Temp: 33.8339°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:42:25] Decision #128
+  Upper=47.1%  Lower=52.9%  Temp=36.36C
+  Level error: 2.07% (HIT)
+  Temp error:  1.36C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[24900] Upper: 49.05%, Lower: 50.95%, Temp: 33.3149°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[24950] Upper: 49.05%, Lower: 50.95%, Temp: 32.7959°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:42:37] Decision #129
+  Upper=51.2%  Lower=48.8%  Temp=34.01C
+  Level error: 6.19% (MISS)
+  Temp error:  0.99C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[25000] Upper: 22.19%, Lower: 77.8101%, Temp: 33.5053°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[25050] Upper: 0%, Lower: 100%, Temp: 36.6864°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[25100] Upper: 0%, Lower: 100%, Temp: 38.0372°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:42:48] Decision #130
+  Upper=0.0%  Lower=100.0%  Temp=35.83C
+  Level error: 45.00% (MISS)
+  Temp error:  0.83C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[25150] Upper: 49.05%, Lower: 50.95%, Temp: 37.528°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25200] Upper: 49.05%, Lower: 50.95%, Temp: 37.009°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25250] Upper: 49.05%, Lower: 50.95%, Temp: 36.4901°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25300] Upper: 49.05%, Lower: 50.95%, Temp: 35.9711°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:43:09] Decision #131
+  Upper=48.6%  Lower=51.4%  Temp=37.86C
+  Level error: 3.65% (HIT)
+  Temp error:  2.86C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[25350] Upper: 49.05%, Lower: 50.95%, Temp: 35.4521°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25400] Upper: 49.05%, Lower: 50.95%, Temp: 34.9331°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25450] Upper: 49.05%, Lower: 50.95%, Temp: 34.4141°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25500] Upper: 49.05%, Lower: 50.95%, Temp: 33.8951°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:43:30] Decision #132
+  Upper=50.7%  Lower=49.3%  Temp=36.14C
+  Level error: 5.69% (MISS)
+  Temp error:  1.14C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[25550] Upper: 0%, Lower: 100%, Temp: 35.8626°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[25600] Upper: 0%, Lower: 100%, Temp: 38.0372°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[25650] Upper: 0%, Lower: 100%, Temp: 38.0362°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[25700] Upper: 0%, Lower: 100%, Temp: 38.0352°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:43:52] Decision #133
+  Upper=0.0%  Lower=100.0%  Temp=37.57C
+  Level error: 45.00% (MISS)
+  Temp error:  2.57C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[25750] Upper: 49.05%, Lower: 50.95%, Temp: 37.8122°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25800] Upper: 49.05%, Lower: 50.95%, Temp: 37.2932°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "level on target; temp high, heater off"} If you want to add more context or details, please let me know! Otherwise, this res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: level on target; temp high, heater off
+
+[02:44:03] Decision #134
+  Upper=46.7%  Lower=53.3%  Temp=37.08C
+  Level error: 1.69% (HIT)
+  Temp error:  2.08C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[25850] Upper: 49.05%, Lower: 50.95%, Temp: 36.7742°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25900] Upper: 49.05%, Lower: 50.95%, Temp: 36.2552°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[25950] Upper: 49.05%, Lower: 50.95%, Temp: 35.7362°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26000] Upper: 49.05%, Lower: 50.95%, Temp: 35.2173°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:44:24] Decision #135
+  Upper=48.4%  Lower=51.6%  Temp=35.71C
+  Level error: 3.43% (HIT)
+  Temp error:  0.71C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[26050] Upper: 49.05%, Lower: 50.95%, Temp: 34.6983°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26100] Upper: 49.05%, Lower: 50.95%, Temp: 34.1793°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26150] Upper: 49.05%, Lower: 50.95%, Temp: 33.6603°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26200] Upper: 49.05%, Lower: 50.95%, Temp: 33.1413°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26250] Upper: 49.05%, Lower: 50.95%, Temp: 32.6223°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:44:45] Decision #136
+  Upper=48.6%  Lower=51.4%  Temp=33.97C
+  Level error: 3.59% (HIT)
+  Temp error:  1.03C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[26300] Upper: 49.05%, Lower: 50.95%, Temp: 35.1078°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[26350] Upper: 49.05%, Lower: 50.95%, Temp: 38.0224°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26400] Upper: 49.05%, Lower: 50.95%, Temp: 38.0214°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26450] Upper: 49.05%, Lower: 50.95%, Temp: 38.0204°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:45:07] Decision #137
+  Upper=49.4%  Lower=50.6%  Temp=35.22C
+  Level error: 4.44% (HIT)
+  Temp error:  0.22C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[26500] Upper: 49.05%, Lower: 50.95%, Temp: 37.7234°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26550] Upper: 49.05%, Lower: 50.95%, Temp: 37.2044°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26600] Upper: 49.05%, Lower: 50.95%, Temp: 36.6854°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26650] Upper: 49.05%, Lower: 50.95%, Temp: 36.1665°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:45:29] Decision #138
+  Upper=49.0%  Lower=51.0%  Temp=37.69C
+  Level error: 3.99% (HIT)
+  Temp error:  2.69C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[26700] Upper: 49.05%, Lower: 50.95%, Temp: 35.6475°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26750] Upper: 49.05%, Lower: 50.95%, Temp: 35.1285°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26800] Upper: 49.05%, Lower: 50.95%, Temp: 34.6095°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26850] Upper: 49.05%, Lower: 50.95%, Temp: 34.0905°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[26900] Upper: 49.05%, Lower: 50.95%, Temp: 33.5715°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:45:50] Decision #139
+  Upper=49.8%  Lower=50.2%  Temp=35.65C
+  Level error: 4.75% (HIT)
+  Temp error:  0.65C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[26950] Upper: 49.05%, Lower: 50.95%, Temp: 33.0525°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27000] Upper: 49.05%, Lower: 50.95%, Temp: 32.5335°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27050] Upper: 49.05%, Lower: 50.95%, Temp: 32.0145°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27100] Upper: 49.05%, Lower: 50.95%, Temp: 31.4955°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:46:12] Decision #140
+  Upper=49.1%  Lower=50.9%  Temp=33.53C
+  Level error: 4.10% (HIT)
+  Temp error:  1.47C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[27150] Upper: 49.05%, Lower: 50.95%, Temp: 33.759°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[27200] Upper: 49.05%, Lower: 50.95%, Temp: 36.9401°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[27250] Upper: 49.05%, Lower: 50.95%, Temp: 38.0047°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27300] Upper: 49.05%, Lower: 50.95%, Temp: 38.0037°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:46:33] Decision #141
+  Upper=49.1%  Lower=50.9%  Temp=34.44C
+  Level error: 4.12% (HIT)
+  Temp error:  0.56C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[27350] Upper: 49.05%, Lower: 50.95%, Temp: 37.7807°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27400] Upper: 49.05%, Lower: 50.95%, Temp: 37.2617°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27450] Upper: 49.05%, Lower: 50.95%, Temp: 36.7427°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27500] Upper: 49.05%, Lower: 50.95%, Temp: 36.2237°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:46:54] Decision #142
+  Upper=48.1%  Lower=51.9%  Temp=37.00C
+  Level error: 3.08% (HIT)
+  Temp error:  2.00C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[27550] Upper: 49.05%, Lower: 50.95%, Temp: 35.7047°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27600] Upper: 49.05%, Lower: 50.95%, Temp: 35.1857°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "level on target; temp in band, heater off"} If you want to add more context or details, please let me know! Otherwise, this 
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: level on target; temp in band, heater off
+
+[02:47:05] Decision #143
+  Upper=46.9%  Lower=53.1%  Temp=35.69C
+  Level error: 1.90% (HIT)
+  Temp error:  0.69C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[27650] Upper: 49.05%, Lower: 50.95%, Temp: 34.6667°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27700] Upper: 49.05%, Lower: 50.95%, Temp: 34.1478°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27750] Upper: 49.05%, Lower: 50.95%, Temp: 33.6288°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27800] Upper: 49.05%, Lower: 50.95%, Temp: 33.1098°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[27850] Upper: 49.05%, Lower: 50.95%, Temp: 32.5908°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:47:27] Decision #144
+  Upper=47.2%  Lower=52.8%  Temp=33.18C
+  Level error: 2.16% (HIT)
+  Temp error:  1.82C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[27900] Upper: 49.05%, Lower: 50.95%, Temp: 35.3722°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[27950] Upper: 49.05%, Lower: 50.95%, Temp: 37.9909°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28000] Upper: 49.05%, Lower: 50.95%, Temp: 37.9899°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28050] Upper: 49.05%, Lower: 50.95%, Temp: 38.0432°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:47:48] Decision #145
+  Upper=48.2%  Lower=51.8%  Temp=35.02C
+  Level error: 3.17% (HIT)
+  Temp error:  0.02C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[28100] Upper: 49.05%, Lower: 50.95%, Temp: 37.6919°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28150] Upper: 49.05%, Lower: 50.95%, Temp: 37.1729°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28200] Upper: 49.05%, Lower: 50.95%, Temp: 36.6539°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28250] Upper: 49.05%, Lower: 50.95%, Temp: 36.1349°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:48:09] Decision #146
+  Upper=49.5%  Lower=50.5%  Temp=37.44C
+  Level error: 4.48% (HIT)
+  Temp error:  2.44C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[28300] Upper: 49.05%, Lower: 50.95%, Temp: 35.6159°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28350] Upper: 49.05%, Lower: 50.95%, Temp: 35.097°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:48:21] Decision #147
+  Upper=50.0%  Lower=50.0%  Temp=35.40C
+  Level error: 4.98% (HIT)
+  Temp error:  0.40C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[28400] Upper: 41.15%, Lower: 58.85%, Temp: 34.9184°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[28450] Upper: 0%, Lower: 100%, Temp: 38.0452°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[28500] Upper: 0%, Lower: 100%, Temp: 38.0343°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:48:32] Decision #148
+  Upper=0.0%  Lower=100.0%  Temp=38.83C
+  Level error: 45.00% (MISS)
+  Temp error:  3.83C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[28550] Upper: 49.05%, Lower: 50.95%, Temp: 37.535°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28600] Upper: 49.05%, Lower: 50.95%, Temp: 37.0161°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28650] Upper: 49.05%, Lower: 50.95%, Temp: 36.4971°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28700] Upper: 49.05%, Lower: 50.95%, Temp: 35.9781°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:48:53] Decision #149
+  Upper=48.2%  Lower=51.8%  Temp=37.67C
+  Level error: 3.17% (HIT)
+  Temp error:  2.67C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[28750] Upper: 49.05%, Lower: 50.95%, Temp: 35.4591°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28800] Upper: 49.05%, Lower: 50.95%, Temp: 34.9401°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28850] Upper: 49.05%, Lower: 50.95%, Temp: 34.4211°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[28900] Upper: 49.05%, Lower: 50.95%, Temp: 33.9021°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:49:15] Decision #150
+  Upper=49.3%  Lower=50.7%  Temp=34.53C
+  Level error: 4.27% (HIT)
+  Temp error:  0.47C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[28950] Upper: 49.05%, Lower: 50.95%, Temp: 33.3831°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29000] Upper: 49.05%, Lower: 50.95%, Temp: 32.8641°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29050] Upper: 49.05%, Lower: 50.95%, Temp: 32.3451°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29100] Upper: 49.05%, Lower: 50.95%, Temp: 31.8262°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to add more context or details, please let me know! Otherwise
+   -> LLM decision: Pump=0%, Heater=True, Valve=True
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:49:36] Decision #151
+  Upper=51.2%  Lower=48.8%  Temp=32.99C
+  Level error: 6.25% (MISS)
+  Temp error:  2.01C (HIT)
+  Control: Pump=0%  Heater=True  Valve=True
+======================================================================
+[29150] Upper: 28.51%, Lower: 71.4901%, Temp: 32.2396°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[29200] Upper: 0%, Lower: 100%, Temp: 35.4206°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[29250] Upper: 0%, Lower: 100%, Temp: 38.0393°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[29300] Upper: 0%, Lower: 100%, Temp: 38.0383°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp in band, heater off"} If you want to add more history or modify any of the input values
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp in band, heater off
+
+[02:49:57] Decision #152
+  Upper=0.0%  Lower=100.0%  Temp=34.82C
+  Level error: 45.00% (MISS)
+  Temp error:  0.18C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[29350] Upper: 3.27%, Lower: 96.73%, Temp: 38.0373°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[29400] Upper: 49.05%, Lower: 50.95%, Temp: 37.5183°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29450] Upper: 49.05%, Lower: 50.95%, Temp: 36.9993°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29500] Upper: 49.05%, Lower: 50.95%, Temp: 36.4803°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29550] Upper: 49.05%, Lower: 50.95%, Temp: 35.9613°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:50:19] Decision #153
+  Upper=51.1%  Lower=48.9%  Temp=37.14C
+  Level error: 6.10% (MISS)
+  Temp error:  2.14C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[29600] Upper: 0%, Lower: 100%, Temp: 38.0324°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[29650] Upper: 0%, Lower: 100%, Temp: 38.0314°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[29700] Upper: 0%, Lower: 100%, Temp: 38.0304°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[29750] Upper: 0%, Lower: 100%, Temp: 38.0294°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:50:40] Decision #154
+  Upper=0.0%  Lower=100.0%  Temp=38.04C
+  Level error: 45.00% (MISS)
+  Temp error:  3.04C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[29800] Upper: 49.05%, Lower: 50.95%, Temp: 37.7324°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29850] Upper: 49.05%, Lower: 50.95%, Temp: 37.2134°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29900] Upper: 49.05%, Lower: 50.95%, Temp: 36.6944°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[29950] Upper: 49.05%, Lower: 50.95%, Temp: 36.1754°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:51:01] Decision #155
+  Upper=48.7%  Lower=51.3%  Temp=36.62C
+  Level error: 3.70% (HIT)
+  Temp error:  1.62C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[30000] Upper: 49.05%, Lower: 50.95%, Temp: 35.6564°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30050] Upper: 49.05%, Lower: 50.95%, Temp: 35.1374°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30100] Upper: 49.05%, Lower: 50.95%, Temp: 34.6184°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30150] Upper: 49.05%, Lower: 50.95%, Temp: 34.0994°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:51:23] Decision #156
+  Upper=49.1%  Lower=50.9%  Temp=35.56C
+  Level error: 4.11% (HIT)
+  Temp error:  0.56C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[30200] Upper: 49.05%, Lower: 50.95%, Temp: 33.5805°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30250] Upper: 49.05%, Lower: 50.95%, Temp: 33.0615°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30300] Upper: 49.05%, Lower: 50.95%, Temp: 32.5425°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30350] Upper: 49.05%, Lower: 50.95%, Temp: 32.0235°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30400] Upper: 49.05%, Lower: 50.95%, Temp: 31.5045°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:51:45] Decision #157
+  Upper=49.9%  Lower=50.1%  Temp=32.37C
+  Level error: 4.93% (HIT)
+  Temp error:  2.63C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[30450] Upper: 49.05%, Lower: 50.95%, Temp: 33.9899°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[30500] Upper: 49.05%, Lower: 50.95%, Temp: 37.171°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[30550] Upper: 49.05%, Lower: 50.95%, Temp: 38.0136°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30600] Upper: 49.05%, Lower: 50.95%, Temp: 38.0126°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:52:06] Decision #158
+  Upper=49.8%  Lower=50.2%  Temp=35.71C
+  Level error: 4.79% (HIT)
+  Temp error:  0.71C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[30650] Upper: 49.05%, Lower: 50.95%, Temp: 37.7156°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30700] Upper: 49.05%, Lower: 50.95%, Temp: 37.1966°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30750] Upper: 49.05%, Lower: 50.95%, Temp: 36.6777°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30800] Upper: 49.05%, Lower: 50.95%, Temp: 36.1587°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:52:27] Decision #159
+  Upper=48.7%  Lower=51.3%  Temp=37.16C
+  Level error: 3.74% (HIT)
+  Temp error:  2.16C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[30850] Upper: 49.05%, Lower: 50.95%, Temp: 35.6397°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30900] Upper: 49.05%, Lower: 50.95%, Temp: 35.1207°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[30950] Upper: 49.05%, Lower: 50.95%, Temp: 34.6017°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31000] Upper: 49.05%, Lower: 50.95%, Temp: 34.0827°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:52:48] Decision #160
+  Upper=48.3%  Lower=51.7%  Temp=35.08C
+  Level error: 3.33% (HIT)
+  Temp error:  0.08C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[31050] Upper: 49.05%, Lower: 50.95%, Temp: 33.5637°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31100] Upper: 49.05%, Lower: 50.95%, Temp: 33.0447°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31150] Upper: 49.05%, Lower: 50.95%, Temp: 32.5257°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:53:00] Decision #161
+  Upper=50.6%  Lower=49.4%  Temp=34.08C
+  Level error: 5.57% (MISS)
+  Temp error:  0.92C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[31200] Upper: 0%, Lower: 100%, Temp: 35.3812°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[31250] Upper: 0%, Lower: 100%, Temp: 37.9999°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:53:11] Decision #162
+  Upper=0.0%  Lower=100.0%  Temp=36.11C
+  Level error: 45.00% (MISS)
+  Temp error:  1.11C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[31300] Upper: 49.05%, Lower: 50.95%, Temp: 37.6289°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31350] Upper: 49.05%, Lower: 50.95%, Temp: 37.1099°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31400] Upper: 49.05%, Lower: 50.95%, Temp: 36.5909°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31450] Upper: 49.05%, Lower: 50.95%, Temp: 36.0719°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:53:31] Decision #163
+  Upper=48.1%  Lower=51.9%  Temp=37.32C
+  Level error: 3.14% (HIT)
+  Temp error:  2.32C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[31500] Upper: 49.05%, Lower: 50.95%, Temp: 35.5529°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31550] Upper: 49.05%, Lower: 50.95%, Temp: 35.0339°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31600] Upper: 49.05%, Lower: 50.95%, Temp: 34.5149°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31650] Upper: 49.05%, Lower: 50.95%, Temp: 33.9959°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:53:53] Decision #164
+  Upper=49.0%  Lower=51.0%  Temp=35.47C
+  Level error: 3.95% (HIT)
+  Temp error:  0.47C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[31700] Upper: 49.05%, Lower: 50.95%, Temp: 33.477°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31750] Upper: 49.05%, Lower: 50.95%, Temp: 32.958°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31800] Upper: 49.05%, Lower: 50.95%, Temp: 32.439°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[31850] Upper: 49.05%, Lower: 50.95%, Temp: 31.92°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:54:14] Decision #165
+  Upper=48.5%  Lower=51.5%  Temp=33.31C
+  Level error: 3.45% (HIT)
+  Temp error:  1.69C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[31900] Upper: 49.05%, Lower: 50.95%, Temp: 32.1114°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[31950] Upper: 49.05%, Lower: 50.95%, Temp: 35.2925°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[32000] Upper: 49.05%, Lower: 50.95%, Temp: 38.0394°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32050] Upper: 49.05%, Lower: 50.95%, Temp: 38.0384°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32100] Upper: 49.05%, Lower: 50.95%, Temp: 38.0374°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the next step, type 'next'! If you want to res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:54:36] Decision #166
+  Upper=49.5%  Lower=50.5%  Temp=34.07C
+  Level error: 4.46% (HIT)
+  Temp error:  0.93C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[32150] Upper: 49.05%, Lower: 50.95%, Temp: 37.5381°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32200] Upper: 49.05%, Lower: 50.95%, Temp: 37.0191°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32250] Upper: 49.05%, Lower: 50.95%, Temp: 36.5001°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32300] Upper: 49.05%, Lower: 50.95%, Temp: 35.9812°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:54:57] Decision #167
+  Upper=50.0%  Lower=50.0%  Temp=37.91C
+  Level error: 5.02% (MISS)
+  Temp error:  2.91C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[32350] Upper: 0%, Lower: 100%, Temp: 38.0522°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[32400] Upper: 0%, Lower: 100%, Temp: 38.0413°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:55:08] Decision #168
+  Upper=0.0%  Lower=100.0%  Temp=38.13C
+  Level error: 45.00% (MISS)
+  Temp error:  3.13C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[32450] Upper: 49.05%, Lower: 50.95%, Temp: 37.7542°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32500] Upper: 49.05%, Lower: 50.95%, Temp: 37.2352°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32550] Upper: 49.05%, Lower: 50.95%, Temp: 36.7162°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32600] Upper: 49.05%, Lower: 50.95%, Temp: 36.1972°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:55:29] Decision #169
+  Upper=49.3%  Lower=50.7%  Temp=36.52C
+  Level error: 4.29% (HIT)
+  Temp error:  1.52C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[32650] Upper: 49.05%, Lower: 50.95%, Temp: 35.6782°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32700] Upper: 49.05%, Lower: 50.95%, Temp: 35.1593°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32750] Upper: 49.05%, Lower: 50.95%, Temp: 34.6403°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32800] Upper: 49.05%, Lower: 50.95%, Temp: 34.1213°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:55:51] Decision #170
+  Upper=49.7%  Lower=50.3%  Temp=35.45C
+  Level error: 4.66% (HIT)
+  Temp error:  0.45C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[32850] Upper: 49.05%, Lower: 50.95%, Temp: 33.6023°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32900] Upper: 49.05%, Lower: 50.95%, Temp: 33.0833°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[32950] Upper: 49.05%, Lower: 50.95%, Temp: 32.5643°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33000] Upper: 49.05%, Lower: 50.95%, Temp: 32.0453°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33050] Upper: 49.05%, Lower: 50.95%, Temp: 31.5263°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:56:12] Decision #171
+  Upper=49.7%  Lower=50.3%  Temp=32.95C
+  Level error: 4.74% (HIT)
+  Temp error:  2.05C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[33100] Upper: 49.05%, Lower: 50.95%, Temp: 34.0858°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[33150] Upper: 49.05%, Lower: 50.95%, Temp: 37.2669°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[33200] Upper: 49.05%, Lower: 50.95%, Temp: 38.0355°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33250] Upper: 49.05%, Lower: 50.95%, Temp: 38.0345°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:56:33] Decision #172
+  Upper=49.3%  Lower=50.7%  Temp=34.40C
+  Level error: 4.26% (HIT)
+  Temp error:  0.60C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[33300] Upper: 49.05%, Lower: 50.95%, Temp: 37.7375°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33350] Upper: 49.05%, Lower: 50.95%, Temp: 37.2185°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33400] Upper: 49.05%, Lower: 50.95%, Temp: 36.6995°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33450] Upper: 49.05%, Lower: 50.95%, Temp: 36.1805°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to know the previous response, I can tell you that the re
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:56:55] Decision #173
+  Upper=49.2%  Lower=50.8%  Temp=37.63C
+  Level error: 4.25% (HIT)
+  Temp error:  2.63C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[33500] Upper: 49.05%, Lower: 50.95%, Temp: 35.6615°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33550] Upper: 49.05%, Lower: 50.95%, Temp: 35.1425°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33600] Upper: 49.05%, Lower: 50.95%, Temp: 34.6235°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33650] Upper: 49.05%, Lower: 50.95%, Temp: 34.1045°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to adjust the response, please let me know. Examples:
+
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:57:16] Decision #174
+  Upper=48.9%  Lower=51.1%  Temp=35.49C
+  Level error: 3.91% (HIT)
+  Temp error:  0.49C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[33700] Upper: 49.05%, Lower: 50.95%, Temp: 33.5855°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33750] Upper: 49.05%, Lower: 50.95%, Temp: 33.0666°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33800] Upper: 49.05%, Lower: 50.95%, Temp: 32.5476°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33850] Upper: 49.05%, Lower: 50.95%, Temp: 32.0286°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[33900] Upper: 49.05%, Lower: 50.95%, Temp: 31.5096°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": true, "reason": "float switch active, pump off; temp low, heater on"} If you want to know the previous response, I can tell you that the respo
+   -> LLM decision: Pump=0%, Heater=True, Valve=False
+   -> Reason: float switch active, pump off; temp low, heater on
+
+[02:57:38] Decision #175
+  Upper=48.8%  Lower=51.2%  Temp=33.02C
+  Level error: 3.75% (HIT)
+  Temp error:  1.98C (HIT)
+  Control: Pump=0%  Heater=True  Valve=False
+======================================================================
+[33950] Upper: 49.05%, Lower: 50.95%, Temp: 34.365°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[34000] Upper: 49.05%, Lower: 50.95%, Temp: 37.5461°C | Pump: OFF (0%) | Heater: ON | Valve: CLOSED
+[34050] Upper: 49.05%, Lower: 50.95%, Temp: 38.0187°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34100] Upper: 49.05%, Lower: 50.95%, Temp: 38.0177°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to know the previous response, I can tell you that the
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:57:59] Decision #176
+  Upper=49.2%  Lower=50.8%  Temp=34.05C
+  Level error: 4.22% (HIT)
+  Temp error:  0.95C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[34150] Upper: 49.05%, Lower: 50.95%, Temp: 37.6467°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34200] Upper: 49.05%, Lower: 50.95%, Temp: 37.1277°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34250] Upper: 49.05%, Lower: 50.95%, Temp: 36.6087°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34300] Upper: 49.05%, Lower: 50.95%, Temp: 36.0898°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:58:20] Decision #177
+  Upper=51.2%  Lower=48.8%  Temp=37.14C
+  Level error: 6.20% (MISS)
+  Temp error:  2.14C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[34350] Upper: 12.71%, Lower: 87.2901%, Temp: 37.2432°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[34400] Upper: 0%, Lower: 100%, Temp: 38.0118°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or adjust the targets, please let me
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:58:31] Decision #178
+  Upper=0.0%  Lower=100.0%  Temp=38.12C
+  Level error: 45.00% (MISS)
+  Temp error:  3.12C (MISS)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[34450] Upper: 45.78%, Lower: 54.22%, Temp: 37.8628°C | Pump: ON (100%) | Heater: OFF | Valve: CLOSED
+[34500] Upper: 49.05%, Lower: 50.95%, Temp: 37.3438°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34550] Upper: 49.05%, Lower: 50.95%, Temp: 36.8248°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34600] Upper: 49.05%, Lower: 50.95%, Temp: 36.3058°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Otherw
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:58:53] Decision #179
+  Upper=50.5%  Lower=49.5%  Temp=36.72C
+  Level error: 5.49% (MISS)
+  Temp error:  1.72C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[34650] Upper: 45.89%, Lower: 54.11%, Temp: 35.9052°C | Pump: OFF (0%) | Heater: ON | Valve: OPEN
+[34700] Upper: 0%, Lower: 100%, Temp: 38.0059°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[34750] Upper: 0%, Lower: 100%, Temp: 38.0049°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:59:04] Decision #180
+  Upper=0.0%  Lower=100.0%  Temp=37.93C
+  Level error: 45.00% (MISS)
+  Temp error:  2.93C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[34800] Upper: 49.05%, Lower: 50.95%, Temp: 37.6339°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34850] Upper: 49.05%, Lower: 50.95%, Temp: 37.1149°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34900] Upper: 49.05%, Lower: 50.95%, Temp: 36.5959°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[34950] Upper: 49.05%, Lower: 50.95%, Temp: 36.0769°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to add more context or details, please let me know! Other
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[02:59:26] Decision #181
+  Upper=49.6%  Lower=50.4%  Temp=37.00C
+  Level error: 4.64% (HIT)
+  Temp error:  2.00C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[35000] Upper: 49.05%, Lower: 50.95%, Temp: 35.5579°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35050] Upper: 49.05%, Lower: 50.95%, Temp: 35.0389°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": true, "heater_on": false, "reason": "float switch active, pump off; temp in band, heater off"} If you want to add more context or details, please let me know! Oth
+   -> LLM decision: Pump=0%, Heater=False, Valve=True
+   -> Reason: float switch active, pump off; temp in band, heater off
+
+[02:59:38] Decision #182
+  Upper=50.0%  Lower=50.0%  Temp=35.17C
+  Level error: 5.00% (HIT)
+  Temp error:  0.17C (HIT)
+  Control: Pump=0%  Heater=False  Valve=True
+======================================================================
+[35100] Upper: 36.41%, Lower: 63.59%, Temp: 35.0824°C | Pump: ON (0%) | Heater: ON | Valve: OPEN
+[35150] Upper: 0%, Lower: 100%, Temp: 37.997°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[35200] Upper: 0%, Lower: 100%, Temp: 37.996°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[35250] Upper: 0%, Lower: 100%, Temp: 37.995°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+[35300] Upper: 0%, Lower: 100%, Temp: 37.994°C | Pump: ON (0%) | Heater: OFF | Valve: OPEN
+   -> LLM raw: {"pump_power": 100, "upper_valve_open": false, "heater_on": false, "reason": "level critical low, pump max; temp high, heater off"} If you want to add more history or modify any of the input values, p
+   -> LLM decision: Pump=100%, Heater=False, Valve=False
+   -> Reason: level critical low, pump max; temp high, heater off
+
+[02:59:59] Decision #183
+  Upper=0.0%  Lower=100.0%  Temp=37.16C
+  Level error: 45.00% (MISS)
+  Temp error:  2.16C (HIT)
+  Control: Pump=100%  Heater=False  Valve=False
+======================================================================
+[35350] Upper: 49.05%, Lower: 50.95%, Temp: 37.549°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35400] Upper: 49.05%, Lower: 50.95%, Temp: 37.03°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "level on target; temp high, heater off"} If you want to add more context or details, please let me know! Otherwise, this res
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: level on target; temp high, heater off
+
+[03:00:11] Decision #184
+  Upper=46.5%  Lower=53.5%  Temp=37.13C
+  Level error: 1.54% (HIT)
+  Temp error:  2.13C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[35450] Upper: 49.05%, Lower: 50.95%, Temp: 36.511°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35500] Upper: 49.05%, Lower: 50.95%, Temp: 35.9921°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35550] Upper: 49.05%, Lower: 50.95%, Temp: 35.4731°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35600] Upper: 49.05%, Lower: 50.95%, Temp: 34.9541°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+   -> LLM raw: {"pump_power": 0, "upper_valve_open": false, "heater_on": false, "reason": "float switch active, pump off; temp high, heater off"} If you want to adjust the response, please let me know. Examples:
+Inp
+   -> LLM decision: Pump=0%, Heater=False, Valve=False
+   -> Reason: float switch active, pump off; temp high, heater off
+
+[03:00:31] Decision #185
+  Upper=48.6%  Lower=51.4%  Temp=36.45C
+  Level error: 3.62% (HIT)
+  Temp error:  1.45C (HIT)
+  Control: Pump=0%  Heater=False  Valve=False
+======================================================================
+[35650] Upper: 49.05%, Lower: 50.95%, Temp: 34.4351°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35700] Upper: 49.05%, Lower: 50.95%, Temp: 33.9161°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+[35750] Upper: 49.05%, Lower: 50.95%, Temp: 33.3971°C | Pump: OFF (0%) | Heater: OFF | Valve: CLOSED
+slurmstepd-willi: error: *** JOB 1344 ON willi CANCELLED AT 2026-05-08T03:00:49 DUE TO TIME LIMIT ***

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-05-19T00:24:40.032938",
+  "decisions": 125,
+  "accuracy": {
+    "level_mae": 1.8907999999999994,
+    "temp_mae": 2.735840000000001,
+    "level_control_accuracy": 100.0,
+    "temp_control_accuracy": 60.8,
+    "overall_accuracy": 60.8,
+    "time_to_target_cycles": 1,
+    "band_stability_longest_run": 4
+  },
+  "latency": {
+    "avg_ms": 9050.433067321777
+  },
+  "safety_override_rate": 39.2,
+  "hallucination_rate": 100.0,
+  "control_hallucination_rate": 0.0,
+  "text_hallucination_rate": 100.0,
+  "hallucination_types": {
+    "parse_error": 0,
+    "missing_field": 0,
+    "wrong_type": 0,
+    "out_of_range": 0,
+    "wrong_key": 0,
+    "extra_content": 125
+  }
+}

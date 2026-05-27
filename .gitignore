@@ -1,0 +1,19 @@
+# Model weights (uploaded to Hugging Face Hub)
+weights/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Large binary files
+*.bin
+*.pt
+*.pth
+training_args.bin
+
+# Large sensor log files (too large for GitHub)
+sensor_log*.json
+
+# Dataset files (large)
+*.jsonl
