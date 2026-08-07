@@ -126,15 +126,21 @@ pip install transformers peft trl bitsandbytes accelerate huggingface_hub
 
 ## Citation
 
-If you use this code or results, please cite:
+If you use this repository in your research, experiments, publications, or derivative work, please cite our paper.
 
-```
-@inproceedings{rayar2026llm,
-  title        = {LLMs as Autonomous Controllers for Multivariable Industrial Fluid Processes},
-  author       = {Rayar, Vidyashree and H{\"u}bner, Michael and Taheri, Mahdi},
-  booktitle    = {Proceedings of [Conference Name]},
-  year         = {2026},
-  organization = {Brandenburg University of Technology Cottbus-Senftenberg},
-  address      = {Cottbus, Germany}
+**Large Language Models as Autonomous Controllers for Multivariable Industrial Processes**  
+V. Rayar, M. Taheri, C. Herglotz, P. Thomas, S. Möller, and M. Hübner  
+Proceedings of the 52nd Annual Conference of the IEEE Industrial Electronics Society (IECON 2026), Doha, Qatar, Oct. 18–21, 2026 (In Press)
+
+**BibTeX:**
+
+```bibtex
+@inproceedings{rayar2026llmcontrollers,
+  title     = {Large Language Models as Autonomous Controllers for Multivariable Industrial Processes},
+  author    = {Rayar, Vidyashree and Taheri, Mahdi and Herglotz, Christian and Thomas, Peter and M{\"o}ller, Stefan and H{\"u}bner, Michael},
+  booktitle = {Proceedings of the 52nd Annual Conference of the IEEE Industrial Electronics Society (IECON)},
+  address   = {Doha, Qatar},
+  month     = oct,
+  year      = {2026},
+  note      = {In Press}
 }
-```
