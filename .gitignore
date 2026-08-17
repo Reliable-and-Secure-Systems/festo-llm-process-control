@@ -17,3 +17,7 @@ sensor_log*.json
 
 # Dataset files (large)
 *.jsonl
+
+.env
+.env
+.DS_Store
