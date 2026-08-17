@@ -1,5 +1,3 @@
-Below is a cleaner, more GitHub-oriented version: the **results table is the focal point**, experiment descriptions are compact, model/checkpoint paths are clear, and the citation/paper details are retained. GitHub recommends keeping READMEs scannable with clear headings and relevant links. ([GitHub Docs][1])
-
 ````markdown
 # Large Language Models as Autonomous Controllers for Multivariable Industrial Processes
 
