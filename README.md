@@ -383,7 +383,4 @@ V. Rayar, M. Taheri, C. Herglotz, P. Thomas, S. Möller, and M. Hübner
 * BitsAndBytes
 * PyTorch
 
-```
-```
-
 [1]: https://docs.github.com/en/repositories/creating-and-managing-repositories/best-practices-for-repositories?utm_source=chatgpt.com "Best practices for repositories - GitHub Docs"
