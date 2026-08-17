@@ -1,3 +1,4 @@
+````markdown
 # Large Language Models as Autonomous Controllers for Multivariable Industrial Processes
 
 This repository contains the implementation, training data generation scripts, inference supervisors, and evaluation results accompanying the IEEE IECON 2026 paper:
@@ -11,7 +12,7 @@ This repository contains the implementation, training data generation scripts, i
 
 This repository presents a **closed-loop fully open-sourced LLM-based control framework for simultaneous multi-variable industrial process control, demonstrated on a fluid process system**[^1].
 
-The repository contains the complete implementation, training data generation scripts, fine-tuning pipelines, inference supervisors, and evaluation results accompanying our IEEE IECON 2026 paper. We fine-tune a Llama 3.2-3B-Instruct model using QLoRA to autonomously control a simulated Festo MPS PA dual-tank workstation. The model receives sensor readings every 5 seconds and outputs structured JSON control actions (`pump_power`, `upper_valve_open`, `heater_on`, `reason`). Three experiments progressively introduce Model Predictive Control (MPC) to study the effect of predictive context on control accuracy and hallucination rates.
+The repository contains the complete implementation, training data generation scripts, fine-tuning pipelines, inference supervisors, and evaluation results accompanying our IEEE IECON 2026 paper. We fine-tune a Llama 3.2-3B-Instruct model using QLoRA to autonomously control a simulated Festo MPS PA dual-tank workstation. The model receives sensor readings every 5 seconds and outputs structured JSON control actions (`pump_power`, `upper_valve_open`, `heater_on`, `reason`). Five experiments evaluate different cumulative prompting configurations and the addition of predictive look-ahead to study its effect on closed-loop control accuracy and hallucination rates.
 
 [^1]: **Associated publication:** V. Rayar, M. Taheri, C. Herglotz, P. Thomas, S. Möller, and M. Hübner, *"Large Language Models as Autonomous Controllers for Multivariable Industrial Processes,"* in **Proceedings of the 52nd Annual Conference of the IEEE Industrial Electronics Society (IECON 2026)**, Doha, Qatar, Oct. 18–21, 2026, in press. *(Paper link will be added once publicly available.)*
 
@@ -24,40 +25,92 @@ The repository contains the complete implementation, training data generation sc
 
 ## Experiments
 
-| Experiment | Records | Fine-Tune Prompt | Inference Prompt | Level % | Temp % | Overall % |
-|------------|---------|-----------------|------------------|--------:|-------:|----------:|
-| [A (12k)](./Experiment_A/) | 11,975 | SP+CoT+FS | SP+CoT+FS | 65.4 | 85.9 | 60.0 |
-| [B (9k)](./Experiment_B/) | 9,000 | SP+CoT+FS+P | SP+CoT+P | 100.0 | 60.8 | 60.8 |
-| [B (9k)](./Experiment_B/) | 9,000 | SP+CoT+FS+P | SP+CoT+FS+P | 40.0 | 56.8 | 25.6 |
-| [C (3k)](./Experiment_C/) | 3,000 | SP+CoT+FS+P | SP+CoT+P | 84.7 | 67.8 | 57.6 |
-| [C (3k)](./Experiment_C/) | 3,000 | SP+CoT+FS+P | SP+CoT+FS+P | 86.2 | 61.2 | 52.6 |
+| Experiment | Training Records | Fine-Tuning Prompt | Inference Prompt | Level % | Temp % | Overall % |
+|------------|-----------------:|--------------------|------------------|--------:|-------:|----------:|
+| [Exp1](./Exp1/) | 11,975 | SP + CoT + FS | SP + CoT + FS | 70.4 | 86.4 | **65.2** |
+| [Exp2](./Exp2/) | 9,000 | SP + CoT + FS + P | SP + CoT + P | 86.8 | 59.2 | **51.2** |
+| [Exp3](./Exp3/) | 9,000 | SP + CoT + FS + P | SP + CoT + FS + P | 58.4 | 62.0 | **39.6** |
+| [Exp4](./Exp4/) | 3,000 | SP + CoT + P | SP + CoT + P | 67.2 | 66.8 | **47.6** |
+| [Exp5](./Exp5/) | 3,000 | SP + CoT + FS + P | SP + CoT + FS + P | 84.0 | 66.4 | **56.8** |
 
-**SP** = System Prompt  **CoT** = Chain of Thought  **FS** = Few-Shot  **P** = Predictive Context
+**SP** = System Prompt  **CoT** = Chain of Thought  **FS** = Few-Shot  **P** = 3-step Predictive Look-Ahead
+
+All experiments use **250 live closed-loop evaluation decisions**.
 
 ---
 
 ## Experiment Descriptions
 
-### [Experiment A](./Experiment_A/) — Baseline Fine-Tuning
+### [Exp1](./Exp1/) — Baseline Fine-Tuning
 
-- **11,975 training records**, no predictive horizon.
-- Fine-tuned using **SP + CoT + FS**.
-- Zero format and content hallucinations.
-- Establishes the baseline with **60.0%** overall accuracy.
+- **11,975 training records**.
+- Prompting strategy: **SP + CoT + FS**.
+- No predictive look-ahead is used.
+- **70.4% level accuracy**.
+- **86.4% temperature accuracy**.
+- **65.2% overall accuracy**.
+- Safety override rate: **0.0%**.
+- Control hallucination rate: **0.0%**.
 
-### [Experiment B](./Experiment_B/) — Receding Horizon MPC (9,000 Records)
+### [Exp2](./Exp2/) — Predictive Look-Ahead
 
-- **9,000 training records** with a 3-step predictive horizon.
-- Level-biased MPC cost function: `2.0 × |level_error| + 1.0 × |temp_error|`.
-- SP+CoT+P achieves **100% level accuracy**.
-- Demonstrates the importance of the safety supervisor due to increased hallucination rates.
+- **9,000 training records**.
+- Adds a **3-step predictive horizon** to the prompting strategy.
+- Predictive look-ahead is evaluated across the cumulative prompting variants.
+- **86.8% level accuracy**.
+- **59.2% temperature accuracy**.
+- **51.2% overall accuracy**.
+- Safety override rate: **37.6%**.
+- Control hallucination rate: **5.6%**.
 
-### [Experiment C](./Experiment_C/) — Equal-Weight MPC (3,000 Records)
+### [Exp3](./Exp3/) — Full Prompting with Predictive Look-Ahead
+
+- **9,000 training records**.
+- Uses the full **SP + CoT + FS + P** strategy.
+- Combines system prompting, Chain-of-Thought, few-shot examples, and a **3-step predictive horizon**.
+- **58.4% level accuracy**.
+- **62.0% temperature accuracy**.
+- **39.6% overall accuracy**.
+- Safety override rate: **31.6%**.
+- Control hallucination rate: **28.0%**.
+
+### [Exp4](./Exp4/) — Reduced Training Data with Predictive Look-Ahead
 
 - **3,000 training records**.
-- Equal-weight MPC cost function: `1.5 × |level_error| + 1.5 × |temp_error|`.
-- Best temperature performance among all experiments.
-- Isolates the impact of MPC cost-function design from dataset size.
+- Uses **SP + CoT + P** without few-shot examples.
+- Uses a **3-step predictive horizon**.
+- **67.2% level accuracy**.
+- **66.8% temperature accuracy**.
+- **47.6% overall accuracy**.
+- Safety override rate: **32.4%**.
+- Control hallucination rate: **0.0%**.
+
+### [Exp5](./Exp5/) — Full Prompting with Predictive Look-Ahead
+
+- **3,000 training records**.
+- Uses the full **SP + CoT + FS + P** strategy.
+- Combines system prompting, Chain-of-Thought, few-shot examples, and a **3-step predictive horizon**.
+- **84.0% level accuracy**.
+- **66.4% temperature accuracy**.
+- **56.8% overall multivariable accuracy**.
+- Safety override rate: **not listed in the extracted Exp5 summary**.
+- Control hallucination rate: **0.0%**.
+
+---
+
+## Fine-Tuned Models
+
+The fine-tuned LoRA adapters used for the experiments are included directly in this repository.
+
+| Experiment | Fine-Tuned Model | Adapter / Checkpoint |
+|------------|------------------|----------------------|
+| Exp1 | `festo_llama3.2_finetuned_exp05` | [`Exp1/festo_llama3.2_finetuned_exp05/checkpoint-1200/`](./Exp1/festo_llama3.2_finetuned_exp05/checkpoint-1200/) |
+| Exp2 | `festo_llama3.2_finetuned_exp07` | [`Exp2/festo_llama3.2_finetuned_exp07/checkpoint-2755/`](./Exp2/festo_llama3.2_finetuned_exp07/checkpoint-2755/) |
+| Exp3 | `festo_llama3.2_finetuned_exp07` | [`Exp3/festo_llama3.2_finetuned_exp07/checkpoint-2755/`](./Exp3/festo_llama3.2_finetuned_exp07/checkpoint-2755/) |
+| Exp4 | `festo_llama3.2_finetuned_exp08` | [`Exp4/festo_llama3.2_finetuned_exp08/checkpoint-915/`](./Exp4/festo_llama3.2_finetuned_exp08/checkpoint-915/) |
+| Exp5 | `festo_llama3.2_finetuned_exp08` | [`Exp5/festo_llama3.2_finetuned_exp08/checkpoint-915/`](./Exp5/festo_llama3.2_finetuned_exp08/checkpoint-915/) |
+
+Each checkpoint contains the LoRA adapter weights and associated tokenizer/configuration files required to load the fine-tuned model.
 
 ---
 
@@ -75,34 +128,85 @@ The repository contains the complete implementation, training data generation sc
 
 ---
 
-## Model Weights (Hugging Face Hub)
-
-Fine-tuned LoRA adapters are available on Hugging Face Hub:
-
-| Experiment | Model |
-|------------|-------|
-| Experiment A | https://huggingface.co/vid1203/festo-llm-experiment-a |
-| Experiment B | https://huggingface.co/vid1203/festo-llm-experiment-b |
-| Experiment C | https://huggingface.co/vid1203/festo-llm-experiment-c |
-
----
-
 ## Repository Structure
 
-```
-Experiment_A/
-Experiment_B/
-Experiment_C/
-```
+```text
+Exp1/
+├── README.md
+├── finetune.py
+├── finetune.sh
+├── generate_training_data.py
+├── llm_supervisor.py
+├── run_llm_system.sh
+├── festo_live/
+└── festo_llama3.2_finetuned_exp05/
+    
+Exp2/
+├── README.md
+├── finetune.py
+├── finetune.sh
+├── generate_training_data.py
+├── llm_supervisor.py
+├── run_llm_system.sh
+├── festo_live/
+└── festo_llama3.2_finetuned_exp07/
+
+Exp3/
+├── README.md
+├── finetune.py
+├── finetune.sh
+├── generate_training_data.py
+├── llm_supervisor.py
+├── run_llm_system.sh
+├── festo_live/
+└── festo_llama3.2_finetuned_exp07/
+
+Exp4/
+├── README.md
+├── finetune.py
+├── finetune.sh
+├── generate_training_data.py
+├── llm_supervisor.py
+├── run_llm_system.sh
+├── festo_live/
+└── festo_llama3.2_finetuned_exp08/
+
+Exp5/
+├── README.md
+├── finetune.py
+├── finetune.sh
+├── generate_training_data.py
+├── llm_supervisor.py
+├── run_llm_system.sh
+├── festo_live/
+└── festo_llama3.2_finetuned_exp08/
+
+cpp_sim/
+├── main.cpp
+├── SimulatedFesto.cpp
+├── SimulatedFesto.hpp
+├── Data.cpp
+├── Data.hpp
+├── DataFilter.cpp
+├── DataFilter.hpp
+├── ErrorDetector.cpp
+├── ErrorDetector.hpp
+├── ConvertAndPrepareData.cpp
+├── ConvertAndPrepareData.hpp
+└── commands.txt
+````
 
 Each experiment directory contains:
 
-- Training dataset
-- Fine-tuning scripts
-- Inference supervisor
-- Evaluation results
-- Training logs
-- Experiment-specific documentation
+* Experiment-specific documentation
+* Fine-tuning scripts
+* Training-data generation scripts
+* LLM inference supervisor
+* Fine-tuned LoRA adapter/checkpoint
+* Closed-loop evaluation results
+* Reproduction scripts
+
+The `cpp_sim/` directory contains the C++ process simulation used for the closed-loop experiments.
 
 ---
 
@@ -116,10 +220,10 @@ pip install transformers peft trl bitsandbytes accelerate huggingface_hub
 
 ## Citation
 
-If you use this repository in your research, experiments, publications, or derivative work, please cite our paper.
+If you use this repository in your research, experiments, publications, or derivative work, please cite ourpaper.
 
-**Large Language Models as Autonomous Controllers for Multivariable Industrial Processes**  
-V. Rayar, M. Taheri, C. Herglotz, P. Thomas, S. Möller, and M. Hübner  
+**Large Language Models as Autonomous Controllers for Multivariable Industrial Processes**
+V. Rayar, M. Taheri, C. Herglotz, P. Thomas, S. Möller, and M. Hübner
 *Proceedings of the 52nd Annual Conference of the IEEE Industrial Electronics Society (IECON 2026), Doha, Qatar, Oct. 18–21, 2026, In Press.*
 
 **BibTeX:**
@@ -140,8 +244,11 @@ V. Rayar, M. Taheri, C. Herglotz, P. Thomas, S. Möller, and M. Hübner
 
 ## Acknowledgements
 
-- Llama 3.2
-- Hugging Face Transformers
-- PEFT (QLoRA)
-- BitsAndBytes
-- PyTorch
+* Llama 3.2
+* Hugging Face Transformers
+* PEFT (QLoRA)
+* BitsAndBytes
+* PyTorch
+
+```
+```
