@@ -1,0 +1,23 @@
+{
+  "Overflow": 0,
+  "FloatSwitch": 1,
+  "MinSwitch": 1,
+  "MaxSwitch": 0,
+  "UpperValve": 0,
+  "LeftTankWaterlevel": 51.1800,
+  "RightTankWaterlevel": 48.8200,
+  "Waterflow": 0.0000,
+  "Pressure": 97.4700,
+  "Temperature": 34.9900,
+  "Heater": 1,
+  "PumpMode": 1,
+  "PumpStatus": 0,
+  "LowerValve": 0,
+  "PumpPower": 0.0000,
+  "LowerValveFlowrate": 0.0000,
+  "Saturation": 85.1616,
+  "Filter": 0,
+  "Inflow": 0,
+  "Error": 1,
+  "Warning": 0
+}

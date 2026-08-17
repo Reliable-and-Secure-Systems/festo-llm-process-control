@@ -21,3 +21,10 @@ sensor_log*.json
 .env
 .env
 .DS_Store
+cpp_sim/job_*.log
+cpp_sim/patch_cpp_exp08.py
+Exp*/festo_live/job_*.log
+Exp*/logs/*.log
+Exp*/logs/*.err
+Exp*/logs/*.out
+Exp*/festo_live/sensor_log.json

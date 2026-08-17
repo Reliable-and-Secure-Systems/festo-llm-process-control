@@ -1,0 +1,59 @@
+squeue -u $USER
+squeue -a
+tail -f job_2495.log
+tail -f job_*.log
+cat job_102.log
+
+
+SIMULATED FESTO DIGITAL TWIN
+
+/opt/anaconda3/bin/conda init zsh
+
+
+echo "" >! sensor_log.json
+echo "" >! llm_unified_log.jsonl
+
+Compiling:
+g++ -std=c++17 *.cpp -o simulated_festo -pthread
+
+
+Run the simulated festo:
+./simulated_festo
+
+
+Start PHP server:
+php -S localhost:8000
+http://localhost:8000/get_llm_metrics.php
+
+New Dashboard on httpserver:
+http://localhost:8000/dashboard.html
+
+
+Old dashboard on http server:
+http://localhost:8000/post_data.html
+http://localhost:8000/get_data.html
+
+
+Current data in json_data.txt file
+
+LLM sets NEW targets (e.g., "try 70% level, 45°C temp") → PID executes the transition (controls pump/heater to reach those targets smoothly) → LLM observes the response (how fast did it stabilize? any overshoot? oscillations?). The PID is the "muscle" that executes, LLM is the "brain" that explores - 
+you'll get rich data on system dynamics under various conditions! 
+
+
+To see the last output line of the file llm_unified_log.jsonl
+tail -n 90 llm_unified_log.jsonl
+
+To check the number of rows in a file
+wc -l llm_unified_log.jsonl
+
+
+Target: Upper (LEFT) Tank Level = 50.0%
+Target: Lower (RIGHT) Tank Temp = 45.0°C (heater location)
+Real Festo: Upper=LEFT, Lower=RIGHT, Heater in RIGHT tank
+Tolerance: ±5.0% level, ±2.0°C temp
+
+
+
+# Simple prompt matching training data format exactly
+        #prompt = f"""Upper level: {data['upper_level']:.1f}%, Temperature: {data['temp']:.1f}°C, Target level: {TARGET_LEVEL}%, Target temp: {TARGET_TEMP}°C"""
+        

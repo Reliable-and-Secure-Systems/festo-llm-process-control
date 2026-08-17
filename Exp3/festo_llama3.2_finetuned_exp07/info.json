@@ -1,0 +1,11 @@
+{
+  "model": "meta-llama/Llama-3.2-3B-Instruct",
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "epochs": 5,
+  "lr": 0.0002,
+  "best_eval_loss": 0.05001740902662277,
+  "train_size": 8820,
+  "val_size": 180,
+  "elapsed_min": 305.56050188938775
+}
