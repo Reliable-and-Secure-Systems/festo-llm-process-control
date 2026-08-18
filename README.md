@@ -1,4 +1,3 @@
-````markdown
 # Large Language Models as Autonomous Controllers for Multivariable Industrial Processes
 
 Implementation and experimental artifacts accompanying the IEEE IECON 2026 paper:
